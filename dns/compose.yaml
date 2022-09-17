@@ -1,0 +1,25 @@
+services:
+  dns:
+    image: dns
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dns
+    hostname: dns
+    ports:
+      - 54:53/udp
+networks:
+  default:
+    name: devanet
+    external: true
+
+# The following can be added to add a static IP but only if you
+# have configured a subnet(s) for the external network!
+# docker network create devanet --subnet=172.19.1.0/24
+#     networks:
+#       devanet:
+#         ipv4_address: 172.19.0.2
+# networks:
+#   devanet:
+#     name: devanet
+#     external: true

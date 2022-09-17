@@ -1,0 +1,23 @@
+include "/etc/bind/named.conf.local";
+
+acl devanet {
+    // 192.168.1.0/24 is the DevaPC home LAN
+    // but the request originates eventually
+    // from the docker bridge network interface
+    // 172.19.0.1 , so it gets denied from DevaPC.
+
+    // 192.168.1.0/24;
+
+    // We need this (the Docker bridge network "devanet") for bridged nets on the DevaPC home LAN.
+
+    172.19.0.1;
+};
+
+options {
+    directory "/var/bind";
+    allow-query { devanet; };
+    allow-transfer { devanet; };
+    recursion yes;
+    dnssec-validation auto;
+    listen-on { any; };
+};
