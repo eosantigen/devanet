@@ -1,9 +1,4 @@
-dn: %SUFFIX%
-objectClass: dcObject
-objectClass: organization
-o: %ORGANISATION_NAME%
-
-dn: dc=deva,dc=net
+dn: dc=devanet
 objectclass: dcObject
 objectclass: organization
 o: Deva Net
