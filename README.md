@@ -10,3 +10,5 @@
 - Observability and distributed tracing
 - CI/CD and various pipelines
 - Deployments and cloud integrations of personal project web applications based on Django, Quarkus, Nodejs, and Ruby on Rails
+- CDN for DevaWeb
+- CKS study context, and hardening configurations
