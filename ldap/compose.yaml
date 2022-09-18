@@ -7,11 +7,9 @@ services:
     container_name: ldap
     hostname: ldap
     ports:
-      - 389:389
-    # depends_on:
-    #   dns:
-    #     condition: service_started
-networks:
-  default:
-    name: devanet
-    external: true
+      - 389
+    network_mode: host
+# networks:
+#   default:
+#     name: devanet
+#     external: true

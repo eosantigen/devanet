@@ -1,22 +1,27 @@
 include "/etc/bind/named.conf.local";
 
-acl devanet {
+acl DevaPC-Docker-Host-Net {
     // 192.168.1.0/24 is the DevaPC home LAN
-    // but the request originates eventually
+    // but when the containers run in bridge mode,
+    // the request originates eventually
     // from the docker bridge network interface
     // 172.19.0.1 , so it gets denied from DevaPC.
+    // But if the container network_mode: host, this will work:
 
-    // 192.168.1.0/24;
+    192.168.1.5;
+    127.0.0.1;
+};
 
-    // We need this (the Docker bridge network "devanet") for bridged nets on the DevaPC home LAN.
-
-    172.19.0.1;
+acl DevaPC-Docker-Bridge-Net {
+    172.17.0.1;
+    //172.18.0.1;
+    //172.19.0.1;
 };
 
 options {
     directory "/var/bind";
-    allow-query { devanet; };
-    allow-transfer { devanet; };
+    allow-query { DevaPC-Docker-Host-Net; };
+    allow-transfer { DevaPC-Docker-Host-Net; };
     recursion yes;
     dnssec-validation auto;
     listen-on { any; };

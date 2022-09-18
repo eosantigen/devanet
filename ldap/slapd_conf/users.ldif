@@ -1,4 +1,4 @@
-dn: cn=eos.antigen,dc=deva,dc=net
+dn: cn=eos.antigen,dc=devanet
 objectclass: inetOrgPerson
 cn: eos.antigen
 sn: Antigen

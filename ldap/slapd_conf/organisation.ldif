@@ -1,5 +1,5 @@
 dn: dc=devanet
 objectclass: dcObject
 objectclass: organization
-o: Deva Net
-dc: deva.net
+o: DevaNet
+dc: devanet

@@ -1,10 +1,10 @@
 FROM alpine:latest
 
-ENV ORGANISATION_NAME "deva.net"
-ENV SUFFIX "dc=deva,dc=net"
+ENV ORGANISATION_NAME "DevaNet"
+ENV SUFFIX "dc=devanet"
 ENV ROOT_USER "deva"
 ENV ROOT_PW "deva"
-ENV LOG_LEVEL "trace"
+ENV LOG_LEVEL "acl"
 
 RUN apk add --update --no-cache \
     openldap openldap-back-mdb openldap-clients && \
