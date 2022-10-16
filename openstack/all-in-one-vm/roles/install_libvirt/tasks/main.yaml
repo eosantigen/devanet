@@ -1,0 +1,28 @@
+---
+
+### APT ###
+
+- name: Install packages
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - libvirt-daemon
+      - libvirt-clients
+      - libnss-libvirt
+      - virt-top
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Enable and start daemons
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    masked: no
+    name: libvirt-daemon
+
+- name: Edit configs
+  ansible.builtin.replace:
+    path: /etc/nsswitch.conf
+    backup: yes
+    regexp: '^.*hosts:          files mdns4_minimal \[NOTFOUND=return] dns'
+    replace: 'hosts:          files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'

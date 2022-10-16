@@ -1,0 +1,12 @@
+---
+
+- hosts: "{{hosts}}"
+
+  roles:
+    - install_libvirt
+    - setup_openstack_aio_vm
+
+  vars_prompt:
+    - name: hosts
+      prompt: host || host-group
+      private: no
