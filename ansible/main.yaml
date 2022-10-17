@@ -3,8 +3,8 @@
 - hosts: "{{hosts}}"
 
   roles:
-    - install_libvirt
-    - setup_openstack_aio_vm
+    - libvirt
+    - openstack/all-in-one-vm
 
   vars_prompt:
     - name: hosts
