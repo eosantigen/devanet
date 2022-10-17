@@ -8,7 +8,7 @@
 
 ## Configuration
 
-`ldapadd -x -D "cn=deva,dc=deva,dc=net" -f users.ldif -w deva`
+`ldapadd -x -D "cn=deva,dc=devanet" -f users.ldif -w deva`
 
 or,
 
@@ -16,7 +16,7 @@ or,
 
 and
 
-`ldapsearch -x -b dc=deva,dc=net -D "cn=deva,dc=deva,dc=net" -w deva`
+`ldapsearch -x -b dc=devanet -D "cn=deva,dc=devanet" -w deva`
 
 or,
 

@@ -1,0 +1,64 @@
+---
+
+### APT ###
+
+- name: Install libvirt packages
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - libvirt-daemon
+      - libvirt-clients
+      - libnss-libvirt
+      - virt-top
+      - bridge-utils
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Enable and start libvirt daemons
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    masked: no
+    name: libvirt-daemon
+  when: ansible_os_family == "Debian"
+
+- name: Edit libvirt configs
+  ansible.builtin.replace:
+    path: /etc/nsswitch.conf
+    backup: yes
+    regexp: '^.*hosts:          files mdns4_minimal \[NOTFOUND=return] dns'
+    replace: 'hosts:          files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
+  when: ansible_os_family == "Debian"
+
+- name: Copy the interfaces file for libvirt bridged networking
+  ansible.builtin.copy:
+    src: interfaces
+    dest: /etc/network/interfaces
+  when: ansible_os_family == "Debian"
+
+
+### GLOBAL ###
+
+- name: Disable net.bridge.bridge-nf-call-arptables
+  ansible.posix.sysctl:
+    ignoreerrors: no
+    reload: yes
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    name: net.bridge.bridge-nf-call-arptables
+    value: '0'
+
+- name: Disable net.bridge.bridge-nf-call-iptables
+  ansible.posix.sysctl:
+    ignoreerrors: no
+    reload: yes
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    name: net.bridge.bridge-nf-call-iptables
+    value: '0'
+
+
+## Grab dynamically the DevaPC Ethernet interface to configure bridged networking
+
