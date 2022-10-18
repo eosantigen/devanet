@@ -2,7 +2,7 @@
 
 ## Study themes and projects
 
-- libvirt - KVM virtualization
+- libvirt - KVM nested virtualization
 - [Openstack](https://www.openstack.org/)
 - [Kubernetes](https://kubernetes.io/)
 - [Openstack Cloud Controller Manager](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/using-openstack-cloud-controller-manager.md)
