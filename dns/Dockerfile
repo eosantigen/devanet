@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk add --update --no-cache \
-    bind
+    bind python3
 
 COPY named.conf.options /etc/bind/
 COPY named.conf.local /etc/bind/

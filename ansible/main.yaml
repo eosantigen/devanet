@@ -1,12 +1,12 @@
 ---
 
-- hosts: "{{hosts}}"
+- hosts: "{{host}}"
 
   roles:
     - libvirt
     - openstack/all-in-one-vm
 
   vars_prompt:
-    - name: hosts
-      prompt: host || host-group
+    - name: host
+      prompt: single host || group of hosts
       private: no

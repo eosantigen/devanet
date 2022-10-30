@@ -7,7 +7,7 @@ ENV ROOT_PW "deva"
 ENV LOG_LEVEL "acl"
 
 RUN apk add --update --no-cache \
-    openldap openldap-back-mdb openldap-clients && \
+    openldap openldap-back-mdb openldap-clients python3 && \
     mkdir -p /run/openldap /var/lib/openldap/openldap-data
 COPY slapd_conf/* /etc/openldap/
 COPY docker-entrypoint.sh /

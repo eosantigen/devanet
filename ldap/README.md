@@ -8,16 +8,16 @@
 
 ## Configuration
 
-`ldapadd -x -D "cn=deva,dc=devanet" -f users.ldif -w deva`
+`docker exec ldap ldapadd -x -D "cn=deva,dc=devanet" -f users.ldif -w deva`
 
 or,
 
-`ldapadd -x -D "cn=deva,dc=devanet" -f users.ldif -w deva`
+`docker exec ldap ldapadd -x -D "cn=deva,dc=devanet" -f users.ldif -w deva`
 
 and
 
-`ldapsearch -x -b dc=devanet -D "cn=deva,dc=devanet" -w deva`
+`docker exec ldap ldapsearch -x -b dc=devanet -D "cn=deva,dc=devanet" -w deva`
 
 or,
 
-`ldapsearch -x -b dc=devanet -D "cn=deva,dc=devanet" -w deva`
+`docker exec ldap ldapsearch -x -b dc=devanet -D "cn=deva,dc=devanet" -w deva`
