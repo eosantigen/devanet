@@ -1,41 +1,64 @@
 ---
 
-### APT ###
+### OS_FAMILY: DEBIAN ###
 
-- name: Install libvirt packages
-  ansible.builtin.apt:
-    update_cache: yes
-    name:
-      - libvirt-daemon
-      - libvirt-clients
-      - libnss-libvirt
-      - virt-top
-      - bridge-utils
-    state: latest
-  when: ansible_os_family == "Debian"
+# - name: Install libvirt dependencies
+#   ansible.builtin.apt:
+#     update_cache: yes
+#     name:
+#       - libvirt-daemon-system
+#       - libnss-libvirt
+#       - virt-top
+#       - bridge-utils
+#       - python3-libvirt
+#       - python3-lxml
+#     state: latest
+#   when: ansible_os_family == "Debian"
+#   become: yes
 
 - name: Enable and start libvirt daemons
   ansible.builtin.systemd:
+    daemon_reload: yes
     state: started
     enabled: yes
     masked: no
-    name: libvirt-daemon
+    name: libvirtd
   when: ansible_os_family == "Debian"
+  become: yes
 
 - name: Edit libvirt configs
   ansible.builtin.replace:
     path: /etc/nsswitch.conf
     backup: yes
-    regexp: '^.*hosts:          files mdns4_minimal \[NOTFOUND=return] dns'
-    replace: 'hosts:          files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
+    regexp: '^.*hosts:.*$(?m)'
+    replace: 'hosts: files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
   when: ansible_os_family == "Debian"
+  become: yes
 
-- name: Copy the interfaces file for libvirt bridged networking
-  ansible.builtin.copy:
-    src: interfaces
-    dest: /etc/network/interfaces
-  when: ansible_os_family == "Debian"
+## Grab dynamically the DevaPC Ethernet interface to configure bridged networking
 
+- name: Bootstrap the bridge interface
+  community.general.nmcli:
+    conn_name: br0
+    ifname: br0
+    type: bridge
+    stp: no
+    method4: manual
+    ip4: 
+     - 192.168.1.11/24
+    gw4: "{{ ansible_default_ipv4.gateway }}"
+    dns4: "{{ item }}"
+    autoconnect: yes
+    state: present
+  with_items:
+   - "{{ ansible_dns.nameservers }}"
+  become: yes
+
+- name: Disable the bridge default network
+  community.libvirt.virt_net:
+    name: default
+    state: inactive
+  become: yes
 
 ### GLOBAL ###
 
@@ -48,6 +71,7 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-arptables
     value: '0'
+  become: yes
 
 - name: Disable net.bridge.bridge-nf-call-iptables
   ansible.posix.sysctl:
@@ -58,7 +82,6 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-iptables
     value: '0'
+  become: yes
 
-
-## Grab dynamically the DevaPC Ethernet interface to configure bridged networking
 

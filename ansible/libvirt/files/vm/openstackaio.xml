@@ -1,0 +1,7 @@
+<!-- MORE TBD - SNIPPET -
+you can also plug it into openvswitch -->
+
+ <interface type='bridge'>
+    <source bridge='br0'/>
+    <model type='virtio'/>   # try this if you experience problems with VLANs
+ </interface>
