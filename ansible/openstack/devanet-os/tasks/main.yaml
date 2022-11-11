@@ -1,0 +1,24 @@
+---
+## TODO
+## Configure a vm on libvirt IF the previous role install_libvirt succeeds. ---> TBD
+
+
+- name: Define domain (VM guest)
+  community.libvirt.virt:
+    command: define
+    xml: "{{ lookup('template', 'domains/{{item}}.xml.j2') }}"
+    uri: qemu:///system
+    autostart: no
+    state: running
+  with_items: "{{ libvirt_guest_name }}"
+
+- name: List all domains (VM)
+  community.libvirt.virt:
+    command: list_vms
+  register: all_vms
+
+- name: Show all domains (VM)
+  debug:
+    var: all_vms.stdout
+
+...

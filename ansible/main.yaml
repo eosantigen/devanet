@@ -1,6 +1,6 @@
 ---
 
-- hosts: "{{host}}"
+- hosts: "{{ node }}"
 
   roles:
     - libvirt

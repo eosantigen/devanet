@@ -1,0 +1,4 @@
+# nets:
+#  - devanet
+libvirt_guest_name: devanet-os
+boot_img_location: $HOME/Downloads/ubuntu-20.04.5-live-server-amd64.iso

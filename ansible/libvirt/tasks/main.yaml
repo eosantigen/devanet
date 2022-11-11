@@ -2,19 +2,19 @@
 
 ### OS_FAMILY: DEBIAN ###
 
-# - name: Install libvirt dependencies
-#   ansible.builtin.apt:
-#     update_cache: yes
-#     name:
-#       - libvirt-daemon-system
-#       - libnss-libvirt
-#       - virt-top
-#       - bridge-utils
-#       - python3-libvirt
-#       - python3-lxml
-#     state: latest
-#   when: ansible_os_family == "Debian"
-#   become: yes
+- name: Install libvirt dependencies
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - libvirt-daemon-system
+      - libnss-libvirt
+      - virt-top
+      - bridge-utils
+      - python3-libvirt
+      - python3-lxml
+    state: latest
+  when: ansible_os_family == "Debian"
+  become: True
 
 - name: Enable and start libvirt daemons
   ansible.builtin.systemd:
@@ -24,7 +24,7 @@
     masked: no
     name: libvirtd
   when: ansible_os_family == "Debian"
-  become: yes
+  become: True
 
 - name: Edit libvirt configs
   ansible.builtin.replace:
@@ -33,7 +33,7 @@
     regexp: '^.*hosts:.*$(?m)'
     replace: 'hosts: files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
   when: ansible_os_family == "Debian"
-  become: yes
+  become: True
 
 ## Grab dynamically the DevaPC Ethernet interface to configure bridged networking
 
@@ -52,13 +52,13 @@
     state: present
   with_items:
    - "{{ ansible_dns.nameservers }}"
-  become: yes
+  become: True
 
 - name: Disable the bridge default network
   community.libvirt.virt_net:
     name: default
     state: inactive
-  become: yes
+  become: True
 
 ### GLOBAL ###
 
@@ -71,7 +71,7 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-arptables
     value: '0'
-  become: yes
+  become: True
 
 - name: Disable net.bridge.bridge-nf-call-iptables
   ansible.posix.sysctl:
@@ -82,6 +82,6 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-iptables
     value: '0'
-  become: yes
+  become: True
 
-
+...

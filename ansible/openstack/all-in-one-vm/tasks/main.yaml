@@ -1,6 +1,0 @@
----
-## TODO
-## Configure a vm on libvirt IF the previous role install_libvirt succeeds.
-## Local hypervisor uri: kvm:///system
-## Define VM spec on libvirt XML.
-## Ansible Namespace: Community.Libvirt.

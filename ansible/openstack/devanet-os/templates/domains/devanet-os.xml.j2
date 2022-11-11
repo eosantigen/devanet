@@ -1,0 +1,25 @@
+<domain type='kvm'>
+  <name>{{ libvirt_guest_name }}</name>
+  <memory unit='MiB'>{{ libvirt_guest_memory_mib }}</memory>
+  <vcpu placement='static'>{{ libvirt_guest_cpu_count }}</vcpu>
+  <os>
+    <type arch='x86_64' machine='pc'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <devices>
+    <disk type='file' device='cdrom'>
+      <source file='{{ boot_img_location }}'/>
+      <target dev='hdc'/>
+      <readonly/>
+    </disk>
+    <disk type='file' device='disk'>
+     <driver name='qemu' type='raw'/>
+     <target dev='hdd' bus='virtio'/>
+    </disk>
+    <interface type='bridge'>
+      <source bridge='br0'/>
+      <model type='virtio'/>   <!-- try this if you experience problems with VLANs -->
+    </interface>
+    <graphics type='vnc' port='9090'/>
+  </devices>
+</domain>
