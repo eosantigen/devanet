@@ -1,4 +1,0 @@
-zone "devanet" {
-    type master;
-    file "/etc/bind/zones/devanet";
-};

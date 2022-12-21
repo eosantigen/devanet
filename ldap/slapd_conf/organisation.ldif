@@ -1,5 +1,0 @@
-dn: dc=devanet
-objectclass: dcObject
-objectclass: organization
-o: DevaNet
-dc: devanet
