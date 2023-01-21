@@ -1,0 +1,6 @@
+dn: cn=eos.antigen,dc=devanet
+objectclass: inetOrgPerson
+cn: eos.antigen
+sn: Antigen
+givenName: Eos
+displayName: Eos Antigen

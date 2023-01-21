@@ -4,9 +4,9 @@
 
   roles:
     - libvirt
-    - openstack/all-in-one-vm
+    - openstack/devanet-os
 
   vars_prompt:
-    - name: host
+    - name: node
       prompt: single host || group of hosts
       private: no

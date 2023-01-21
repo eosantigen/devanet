@@ -1,0 +1,25 @@
+services:
+  ldap:
+    image: ldap
+    build:
+      context: ldap
+      dockerfile: Dockerfile
+    container_name: ldap
+    hostname: ldap
+    ports:
+      - 389
+    network_mode: host
+  dns:
+    image: ns
+    build:
+      context: dns
+      dockerfile: Dockerfile
+    container_name: ns
+    hostname: ns
+    ports:
+      - 53/udp
+    network_mode: host
+# networks:
+#   default:
+#     name: devanet
+#     external: true
