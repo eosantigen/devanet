@@ -9,9 +9,7 @@
     <bootmenu enable='yes' timeout='3000'/>
     <bios useserial='yes' rebootTimeout='8'/>
   </os>
-  <cpu mode='custom' match='exact' check='none'>
-    <model fallback='forbid'>qemu64</model>
-  </cpu>
+  <cpu mode='host-passthrough'/>
   <clock offset='utc'/>
   <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>

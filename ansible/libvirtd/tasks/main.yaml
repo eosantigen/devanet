@@ -89,6 +89,13 @@
 
 # Storage pools
 
+- name: Destroy a storage volume & pool
+  ansible.builtin.script: scripts/virsh_destroy.bash
+  become: true
+  ignore_errors: true
+  tags: 
+    - destroy
+
 - name: Define a storage pool
   community.libvirt.virt_pool:
     command: define
@@ -102,33 +109,14 @@
     command: start
     name: "{{ item }}"
   with_items: "{{ libvirt_guest_names }}"
-  ignore_errors: true
 
 # Storage pool - volume
 
 - name: Create a storage pool volume (partition)
-  ansible.builtin.script: scripts/virsh.bash
-  with_items: "{{ libvirt_guest_names }}"
+  ansible.builtin.script: scripts/virsh_create.bash
   become: true
-  ignore_errors: true
 
 # Domains (aka VM)
-
-- name: Unfefine domain(s) (guest VM)
-  community.libvirt.virt:
-    guest: "{{ item }}"
-    command: undefine
-    uri: qemu:///system
-  with_items: "{{ libvirt_guest_names }}"
-  ignore_errors: true
-
-- name: Destroy domain(s) (guest VM)
-  community.libvirt.virt:
-    guest: "{{ item }}"
-    command: destroy
-    uri: qemu:///system
-  with_items: "{{ libvirt_guest_names }}"
-  ignore_errors: true
 
 - name: Define domain(s) (guest VM)
   community.libvirt.virt:
