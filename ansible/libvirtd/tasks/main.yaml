@@ -84,4 +84,65 @@
     value: '0'
   become: True
 
+## TODO
+## Configure a vm on libvirt IF the previous role install_libvirt succeeds. ---> TBD
+
+# Storage pools
+
+- name: Define a storage pool
+  community.libvirt.virt_pool:
+    command: define
+    name: "{{ item }}"
+    xml: "{{ lookup('template', 'storage/{{ item }}.storage-pool.xml.j2') }}"
+    uri: qemu:///system
+  with_items: "{{ libvirt_guest_names }}"
+
+- name: Start a storage pool
+  community.libvirt.virt_pool:
+    command: start
+    name: "{{ item }}"
+  with_items: "{{ libvirt_guest_names }}"
+  ignore_errors: true
+
+# Storage pool - volume
+
+- name: Create a storage pool volume (partition)
+  ansible.builtin.script: scripts/virsh.bash
+  with_items: "{{ libvirt_guest_names }}"
+  become: true
+  ignore_errors: true
+
+# Domains (aka VM)
+
+- name: Unfefine domain(s) (guest VM)
+  community.libvirt.virt:
+    guest: "{{ item }}"
+    command: undefine
+    uri: qemu:///system
+  with_items: "{{ libvirt_guest_names }}"
+  ignore_errors: true
+
+- name: Destroy domain(s) (guest VM)
+  community.libvirt.virt:
+    guest: "{{ item }}"
+    command: destroy
+    uri: qemu:///system
+  with_items: "{{ libvirt_guest_names }}"
+  ignore_errors: true
+
+- name: Define domain(s) (guest VM)
+  community.libvirt.virt:
+    command: define
+    xml: "{{ lookup('template', 'domains/{{ item }}.xml.j2') }}"
+    uri: qemu:///system
+  with_items: "{{ libvirt_guest_names }}"
+
+- name: Start domain
+  community.libvirt.virt:
+    name: "{{ item }}"
+    state: running
+    autostart: no
+    uri: 'qemu:///system'
+  with_items: "{{ libvirt_guest_names }}"
+  become: true
 ...

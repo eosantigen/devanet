@@ -1,0 +1,70 @@
+<domain type='kvm'>
+  <name>devanet</name>
+  <uuid>d3069dc5-5539-46b9-a413-30f94fdaeb8f</uuid>
+  <memory unit='KiB'>18874368</memory>
+  <currentMemory unit='KiB'>18874368</currentMemory>
+  <vcpu placement='static'>8</vcpu>
+  <os>
+    <type arch='x86_64' machine='pc-i440fx-7.0'>hvm</type>
+    <bootmenu enable='yes' timeout='3000'/>
+    <bios useserial='yes' rebootTimeout='8'/>
+  </os>
+  <cpu mode='custom' match='exact' check='none'>
+    <model fallback='forbid'>qemu64</model>
+  </cpu>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/eosantigen/Downloads/proxmox-ve_7.3-1.iso'/>
+      <target dev='sdc' bus='sata'/>
+      <readonly/>
+      <boot order='1'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='2'/>
+    </disk>
+    <disk type='volume' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <source pool='devanet' volume='sdb1'/>
+      <target dev='hdd' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='3'/>
+    </disk>
+    <controller type='usb' index='0' model='piix3-uhci'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x2'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'/>
+    <controller type='sata' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </controller>
+    <interface type='bridge'>
+      <mac address='52:54:00:45:59:78'/>
+      <source bridge='br0'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </interface>
+    <serial type='pty'>
+      <target type='isa-serial' port='0'>
+        <model name='isa-serial'/>
+      </target>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+    <graphics type='vnc' port='9090' autoport='no'>
+      <listen type='address'/>
+    </graphics>
+    <audio id='1' type='none'/>
+    <video>
+      <model type='cirrus' vram='16384' heads='1' primary='yes'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+    </video>
+    <memballoon model='virtio'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+    </memballoon>
+  </devices>
+</domain>

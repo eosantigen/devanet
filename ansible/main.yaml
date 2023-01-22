@@ -3,8 +3,7 @@
 - hosts: "{{ node }}"
 
   roles:
-    - libvirt
-    - openstack/devanet-os
+    - libvirtd
 
   vars_prompt:
     - name: node

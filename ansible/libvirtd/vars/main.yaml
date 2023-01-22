@@ -1,7 +1,7 @@
 # nets:
 #  - devanet
 libvirt_guest_names:
-  - devanet-os
+  - devanet
 boot_img_location: /home/eosantigen/Downloads/proxmox-ve_7.3-1.iso
-libvirt_guest_memory_mib: 4
-libvirt_guest_cpu_count: 4
+libvirt_guest_memory_gib: 18
+libvirt_guest_cpu_count: 8

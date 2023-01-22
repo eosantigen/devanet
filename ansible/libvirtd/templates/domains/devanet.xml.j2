@@ -1,0 +1,38 @@
+<domain type='kvm'>
+  <name>{{ item }}</name>
+  <memory unit='GiB'>{{ libvirt_guest_memory_gib }}</memory>
+  <vcpu placement='static'>{{ libvirt_guest_cpu_count }}</vcpu>
+  <os>
+    <type arch='x86_64' machine='pc'>hvm</type>
+    <!-- <boot dev='cdrom'/> -->
+    <bootmenu enable='yes' timeout='3000'/>
+    <bios useserial='yes' rebootTimeout='8'/>
+  </os>
+  <devices>
+    <disk type='file' device='cdrom'>
+      <source file='{{ boot_img_location }}'/>
+      <target dev='sdc' bus='sata'/>
+      <driver name='qemu' type='raw'/>
+      <boot order='1'/>
+      <!-- <address type='drive' controller='0' bus='0' target='0' unit='0'/> -->
+      <readonly='no'/>
+    </disk>
+    <disk type='volume' device='disk'>
+    <driver name='qemu' type='raw'/>
+    <source pool='{{ item }}' volume='sdb1'/>
+    <target dev='hdd' bus='sata'/>
+  </disk>
+    <!-- Serial console -->
+<serial type='pty'>
+  <target port='0'/>
+</serial>
+<console type='pty'>
+  <target type='serial' port='0'/>
+</console>
+    <interface type='bridge'>
+      <source bridge='br0'/>
+      <model type='virtio'/>   <!-- try this if you experience problems with VLANs -->
+    </interface>
+   <graphics type='vnc' port='9090'/>
+  </devices>
+</domain>
