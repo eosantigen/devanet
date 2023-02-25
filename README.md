@@ -1,4 +1,15 @@
-# DevaNet: A localhost cloud
+# DevaNet: A mini cloud in a PC.
+
+## Host hardware specs
+
+```
+Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+L2: 1,5 MiB
+L3: 15 MiB
+Memory speed: (4 x 8192 MB) @ 2133 MT/s each
+Hostname: DevaPC
+
+```
 
 ## Study themes and projects
 
@@ -10,10 +21,9 @@
 - Service Mesh
 - Observability (distributed tracing, metrics, logging with the Grafana stack, Prometheus, Jaeger & OpenTracing)
 - CI/CD and various pipelines for applications based on Python, JVM, Nodejs, and Ruby on Rails, _including_:
-  - [Pants](https://v1.pantsbuild.org/why_use_pants.html)
   - [Apache Airflow](https://airflow.apache.org/)
   - [ArgoCD](https://argo-cd.readthedocs.io/)
-  - [Jenkins](https://www.jenkins.io/doc/)
+  - [JenkinsX](https://jenkins-x.io/)
   - [Tekton](https://tekton.dev/)
 - CDN for applications
 - CKS study context, and the NSA hardening configurations
