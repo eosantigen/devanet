@@ -33,4 +33,4 @@ Hostname: DevaPC
 
 ### Diagrams
 
-![DevaNet CI/CD Flow 1](./media/devanet_cicd_flow_1)
+![DevaNet CI/CD Flow 1](./media/devanet_cicd_flow_1.png)
