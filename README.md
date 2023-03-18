@@ -8,7 +8,6 @@ L2: 1,5 MiB
 L3: 15 MiB
 Memory speed: (4 x 8192 MB) @ 2133 MT/s each
 Hostname: DevaPC
-
 ```
 
 ## Study themes and projects
@@ -31,3 +30,7 @@ Hostname: DevaPC
 - Micro-services and micro-frontends (with emphasis on the Reactive principle)
 - Real-time analytics for event-driven data on web applications with [Apache Druid](https://druid.apache.org/faq)
 - Software-defined networking and NFV with [OpenDaylight](https://www.opendaylight.org/) & [Open vSwitch](https://www.openvswitch.org/)
+
+### Diagrams
+
+![DevaNet CI/CD Flow 1](./media/devanet_cicd_flow_1)
