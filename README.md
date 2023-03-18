@@ -18,7 +18,7 @@ Hostname: DevaPC
 - [Openstack Cloud Controller Manager](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/using-openstack-cloud-controller-manager.md)
 - [Microk8s](https://microk8s.io/)
 - Service Mesh
-- Observability (distributed tracing, metrics, logging with the Grafana stack, Prometheus, Jaeger & OpenTracing)
+- Observability (distributed tracing, metrics, logging with the Grafana stack, Prometheus, Jaeger & [OpenTelemetry](https://opentelemetry.io/))
 - CI/CD and various pipelines for applications based on Python, JVM, Nodejs, and Ruby on Rails, _including_:
   - [Apache Airflow](https://airflow.apache.org/)
   - [ArgoCD](https://argo-cd.readthedocs.io/)
