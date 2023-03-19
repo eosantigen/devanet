@@ -3,7 +3,7 @@
 If this fetches the record, `dig @localhost ldap.devanet` or `dig @DevaPC ldap.devanet` (provided it resolves to `127.0.0.1` in `/etc/hosts`), containing `SERVER: 127.0.0.1#53(DevaPC) (UDP)` , then it works!
 The mandatory option of __@server__ may be ommitted if:
 
-1. In `/etc/systemd/resolved.conf` we add: 
+1. In `/etc/systemd/resolved.conf` we add:
 ```
 DNS=127.0.0.1#53
 FallbackDNS=127.0.0.1#53
@@ -29,6 +29,8 @@ Current DNS Server: 192.168.1.254
 ```
 
 It will now work as `dig ldap.devanet` .
+
+**BONUS** : _In the container's logs you can see what NS are called from your entire system..._
 
 ## Use case 1
 

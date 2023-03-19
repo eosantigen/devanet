@@ -54,10 +54,10 @@
    - "{{ ansible_dns.nameservers }}"
   become: True
 
-- name: Disable the bridge default network
+- name: Enable the bridge default network
   community.libvirt.virt_net:
     name: default
-    state: inactive
+    state: active
   become: True
 
 ### GLOBAL ###

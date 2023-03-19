@@ -29,8 +29,9 @@
     <target type='serial' port='0'/>
   </console>
   <interface type='bridge'>
-    <source bridge='br0'/>
-    <model type='virtio'/>   <!-- try this if you experience problems with VLANs -->
+    <source bridge='virbr0'/>
+    <target dev='vnet0'/>   <!-- this is not working -->
+    <model type='virtio'/>  <!-- try this if you experience problems with VLANs -->
   </interface>
   <graphics type='vnc' port='9090'/>
   </devices>
