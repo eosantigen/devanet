@@ -1,5 +1,18 @@
 # DNS across DevaNet
 
+## Have to set a static IP for DevaPC
+
+Netplan uses NetworkManager to handle the connections, so, in `/etc/NetworkManager/system-connections/Wired\ connection\ 1.nmconnection` , the following must be:
+
+```
+[ipv4]
+# method=auto
+addresses=192.168.1.5/24
+gateway=192.168.1.254
+dns=192.168.1.254
+method=manual
+```
+
 If this fetches the record, `dig @localhost ldap.devanet` or `dig @DevaPC ldap.devanet` (provided it resolves to `127.0.0.1` in `/etc/hosts`), containing `SERVER: 127.0.0.1#53(DevaPC) (UDP)` , then it works!
 The mandatory option of __@server__ may be ommitted if:
 
