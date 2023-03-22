@@ -12,6 +12,13 @@ gateway=192.168.1.254
 dns=192.168.1.254
 method=manual
 ```
+And then:
+```
+systemctl restart NetworkManager.service
+systemctl restart systemd-networkd.service
+```
+
+## Test DNS Resolution via the container
 
 If this fetches the record, `dig @localhost ldap.devanet` or `dig @DevaPC ldap.devanet` (provided it resolves to `127.0.0.1` in `/etc/hosts`), containing `SERVER: 127.0.0.1#53(DevaPC) (UDP)` , then it works!
 The mandatory option of __@server__ may be ommitted if:
