@@ -1,24 +1,17 @@
 # DevaNet: A mini cloud in a PC.
 
-## Host hardware specs
+_(or: My PC as a hypervisor with nested VMs)_
 
-```
-Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
-L2: 1,5 MiB
-L3: 15 MiB
-Memory speed: (4 x 8192 MB) @ 2133 MT/s each
-Hostname: DevaPC
-```
-## Intro
+## Setup
 
-1. Create the base VM with the Ansible playbook (run this playbook only once, as it re-creates the VM each time)
-2. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
-3. `cd docker/domain; docker compose up`
+1. Create the base VM with the Ansible playbook _(run this playbook only once, as it re-creates the VM each time)_
+2. `cd docker/domain; docker compose up`
+3. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
 4. Login with domain "devanet" (LDAP) on https://192.168.122.2:8006
 
 ## Study themes and projects
 
-- [libvirt](https://libvirt.org/docs.html) - KVM nested virtualization
+- [libvirt](https://libvirt.org/docs.html)
 - [Openstack](https://www.openstack.org/)
 - [Kubernetes](https://kubernetes.io/)
 - [Openstack Cloud Controller Manager](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/using-openstack-cloud-controller-manager.md)
