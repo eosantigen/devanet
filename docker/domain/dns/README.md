@@ -61,3 +61,32 @@ Along, we also need the container's DNS information to be injected into the cont
 ## Use case 2
 
 Break down various services running on Docker into custom bridge nets and play with them in acl.
+
+## Explanation
+
+### Testing blocked IPs from querying the DevaNet DNS server
+
+We have ACL in the DNS config that has not yet allowed source IP other than itself (192.168.1.5) to call this service. For example:
+
+**From the the default bridged network 192.168.122.0/24**
+
+The Proxmox base VM, pve.devanet, has IP : `192.168.122.2` . Same will be for the kc1.devanet `192.168.122.3`
+
+```
+root@pve:~# dig @192.168.1.5 ldap
+
+; <<>> DiG 9.16.33-Debian <<>> @192.168.1.5 ldap
+; (1 server found)
+......................
+; EDE: 18 (Prohibited)
+;; QUESTION SECTION:
+;ldap.				IN	A
+
+;; Query time: 3 msec
+;; SERVER: 192.168.1.5#53(192.168.1.5)
+```
+This returns:
+
+```
+...192.168.122.2#36281 (ldap): query (cache) 'ldap/A/IN' denied (allow-query-cache did not match)
+```

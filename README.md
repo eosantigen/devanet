@@ -11,10 +11,10 @@ Hostname: DevaPC
 ```
 ## Intro
 
-1. Create the base VM with the Ansible playbook
+1. Create the base VM with the Ansible playbook (run this playbook only once, as it re-creates the VM each time)
 2. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
 3. `cd docker/domain; docker compose up`
-4. Login with domain "devanet" (LDAP)
+4. Login with domain "devanet" (LDAP) on https://192.168.122.2:8006
 
 ## Study themes and projects
 
