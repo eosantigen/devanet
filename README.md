@@ -9,6 +9,12 @@ L3: 15 MiB
 Memory speed: (4 x 8192 MB) @ 2133 MT/s each
 Hostname: DevaPC
 ```
+## Intro
+
+1. Create the base VM with the Ansible playbook
+2. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
+3. `cd docker/domain; docker compose up`
+4. Login with domain "devanet" (LDAP)
 
 ## Study themes and projects
 
@@ -30,8 +36,3 @@ Hostname: DevaPC
 - Micro-services and micro-frontends (with emphasis on the Reactive principle)
 - Real-time analytics for event-driven data on web applications with [Apache Druid](https://druid.apache.org/faq)
 - Software-defined networking and NFV with [OpenDaylight](https://www.opendaylight.org/) & [Open vSwitch](https://www.openvswitch.org/)
-
-### Diagrams
-
-**CI/CD Flow Abstract**
-![DevaNet CI/CD Flow Abstract](./media/devanet_cicd_flow_1.png)
