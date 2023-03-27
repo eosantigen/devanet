@@ -1,3 +1,3 @@
 # NOTE
 
-If these certificates are to be used anywhere in a public environment, the *.key files must be added into .gitignore or kept elsewhere in private, after they have been recreated (changed).
+If something is to be exposed to the Internet, create new certificates and remove this folder.
