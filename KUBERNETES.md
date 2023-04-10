@@ -151,22 +151,25 @@ kw1    Ready    <none>          2m38s   v1.26.3   192.168.122.4   <none>        
 ```
 
 ```
-eosantigen@kc1:~$ kubectl get pods -A
-NAMESPACE          NAME                                       READY   STATUS    RESTARTS   AGE
-calico-apiserver   calico-apiserver-6b4d85f485-dxdsm          1/1     Running   0          17m
-calico-apiserver   calico-apiserver-6b4d85f485-ptrdn          1/1     Running   0          17m
-calico-system      calico-kube-controllers-6bb86c78b4-65ls8   1/1     Running   0          19m
-calico-system      calico-node-x4hm8                          1/1     Running   0          19m
-calico-system      calico-typha-b7f47b486-khcwq               1/1     Running   0          19m
-calico-system      csi-node-driver-4tk5q                      2/2     Running   0          19m
-kube-system        coredns-787d4945fb-bggll                   1/1     Running   0          26m
-kube-system        coredns-787d4945fb-wcbll                   1/1     Running   0          26m
-kube-system        etcd-kc1                                   1/1     Running   29         26m
-kube-system        kube-apiserver-kc1                         1/1     Running   29         26m
-kube-system        kube-controller-manager-kc1                1/1     Running   0          26m
-kube-system        kube-proxy-ffpv7                           1/1     Running   0          26m
-kube-system        kube-scheduler-kc1                         1/1     Running   34         26m
-tigera-operator    tigera-operator-5d6845b496-lr5tl           1/1     Running   0          20m
+eosantigen@kc1:~$ kubectl get pods -A --watch
+NAMESPACE          NAME                                       READY   STATUS    RESTARTS       AGE
+calico-apiserver   calico-apiserver-6b4d85f485-dxdsm          1/1     Running   1 (70m ago)    6h26m
+calico-apiserver   calico-apiserver-6b4d85f485-ptrdn          1/1     Running   1 (70m ago)    6h26m
+calico-system      calico-kube-controllers-6bb86c78b4-65ls8   1/1     Running   1 (70m ago)    6h27m
+calico-system      calico-node-dvjkk                          1/1     Running   4 (14m ago)    27m
+calico-system      calico-node-x4hm8                          1/1     Running   1 (70m ago)    6h27m
+calico-system      calico-typha-b7f47b486-khcwq               1/1     Running   1 (70m ago)    6h27m
+calico-system      csi-node-driver-4tk5q                      2/2     Running   2 (70m ago)    6h27m
+calico-system      csi-node-driver-knfpx                      2/2     Running   44 (14m ago)   5h26m
+kube-system        coredns-787d4945fb-bggll                   1/1     Running   1 (70m ago)    6h34m
+kube-system        coredns-787d4945fb-wcbll                   1/1     Running   1 (70m ago)    6h34m
+kube-system        etcd-kc1                                   1/1     Running   30 (70m ago)   6h34m
+kube-system        kube-apiserver-kc1                         1/1     Running   30 (70m ago)   6h34m
+kube-system        kube-controller-manager-kc1                1/1     Running   1 (70m ago)    6h34m
+kube-system        kube-proxy-dsgrs                           1/1     Running   2 (14m ago)    25m
+kube-system        kube-proxy-ffpv7                           1/1     Running   1 (70m ago)    6h34m
+kube-system        kube-scheduler-kc1                         1/1     Running   35 (70m ago)   6h34m
+tigera-operator    tigera-operator-5d6845b496-lr5tl           1/1     Running   2 (69m ago)    6h29m
 ```
 
 ## 5 - DO SOME FIXES
