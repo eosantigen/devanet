@@ -3,35 +3,29 @@
 ## 1 - PREFLIGHT CHECKS
 
 In case kubeadm init fails the pre-flight check for kernel options:
-```
+
 modprobe bridge
 echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.conf
-sysctl -p /etc/sysctl.conf
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-
 sysctl -p /etc/sysctl.conf
 
 sysctl: cannot stat /proc/sys/net/bridge/bridge-nf-call-iptables: No such file or directory sysctl: cannot stat /proc/sys/net/bridge/bridge-nf-call-ip6tables: No such file or directory
 
 modprobe br_netfilter
 sysctl -p /etc/sysctl.conf
+
+### CONTAINERD BOOTSTRAP
+
 ```
-
-### CONTAINERD BOOTSTRAP (only if you encounter issues - might be on older version...)
-
 containerd config default > /etc/containerd/config.toml
 
-Edit into:
-```
-enabled_plugins = ["cri"]
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-            SystemdCgroup = true
+
 ```
 
 ## 2 - KUBEADM INIT
 
 (installed the bundle as per official Kubernetes docs.)
-```
+
 kubeadm init --pod-network-cidr=10.0.0.0/16 --node-name=kc1
 
 [init] Using Kubernetes version: v1.26.3
@@ -103,6 +97,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
+```
 kubeadm join 192.168.122.3:6443 --token <kubeadm token list> --discovery-token-unsafe-skip-ca-verification
 ```
 
@@ -152,7 +147,7 @@ spec: {}
 eosantigen@kc1:~$ kubectl get nodes -o wide
 NAME   STATUS   ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION      CONTAINER-RUNTIME
 kc1    Ready    control-plane   70m     v1.26.3   192.168.122.3   <none>        Ubuntu 22.10   5.19.0-21-generic   containerd://1.6.4-0ubuntu1
-kw1    Ready    <none>          2m38s   v1.26.3   192.168.122.4   <none>        Ubuntu 22.10   5.19.0-38-generic   containerd://1.6.12
+kw1    Ready    <none>          2m38s   v1.26.3   192.168.122.4   <none>        Ubuntu 22.10   5.19.0-38-generic   containerd://1.6.4-0ubuntu1
 ```
 
 ```
@@ -172,4 +167,21 @@ kube-system        kube-controller-manager-kc1                1/1     Running   
 kube-system        kube-proxy-ffpv7                           1/1     Running   0          26m
 kube-system        kube-scheduler-kc1                         1/1     Running   34         26m
 tigera-operator    tigera-operator-5d6845b496-lr5tl           1/1     Running   0          20m
+```
+
+## 5 - DO SOME FIXES
+
+(The following were used to fix instability with the calico-node, csi-node-driver, kube-proxy pods that kept crashing).
+
+1. Give calico-node ds some air:
+```
+kubectl patch daemonset calico-node -n calico-system -p='{"spec":{"template":{"spec":{"containers":[{"name":"calico-node","livenessProbe":{"timeoutSeconds":30},"readinessProbe":{"timeoutSeconds":30}}]}}}}'
+```
+
+2. Use cgroupfs instead of systemd
+
+```
+kubectl edit cm kubelet-config -n kube-system
+sudo vim /var/lib/kubelet/config.yaml
+sudo systemctl restart kubelet 
 ```
