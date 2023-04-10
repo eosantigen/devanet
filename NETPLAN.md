@@ -49,13 +49,30 @@ DNS: 192.168.122.1
 
 ### Specs
 
-CPU: 2 - 4 (limit)
-Memory: 6GB
+- CPU: 2 - 4 (limit)
+
+- Memory: 6GB
 
 ```
 Hostname: kc1.devanet
 OS: Ubuntu Server 22.10
 IP CIDR: 192.168.122.3/24
+Gateway: 192.168.122.1
+DNS: 192.168.122.1
+```
+
+## Nested VM within PVE - Kubernetes Worker Node
+
+### Specs
+
+- CPU: 2 - 4 (limit)
+
+- Memory: 6GB
+
+```
+Hostname: kw1.devanet
+OS: Ubuntu Server 22.10
+IP CIDR: 192.168.122.4/24
 Gateway: 192.168.122.1
 DNS: 192.168.122.1
 ```
