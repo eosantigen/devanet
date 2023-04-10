@@ -4,6 +4,7 @@
 
 In case kubeadm init fails the pre-flight check for kernel options:
 
+```
 modprobe bridge
 echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.conf
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
@@ -13,12 +14,11 @@ sysctl: cannot stat /proc/sys/net/bridge/bridge-nf-call-iptables: No such file o
 
 modprobe br_netfilter
 sysctl -p /etc/sysctl.conf
-
+```
 ### CONTAINERD BOOTSTRAP
 
 ```
 containerd config default > /etc/containerd/config.toml
-
 
 ```
 
@@ -26,8 +26,9 @@ containerd config default > /etc/containerd/config.toml
 
 (installed the bundle as per official Kubernetes docs.)
 
-kubeadm init --pod-network-cidr=10.0.0.0/16 --node-name=kc1
+**kubeadm init --pod-network-cidr=10.0.0.0/16 --node-name=kc1**
 
+```
 [init] Using Kubernetes version: v1.26.3
 [preflight] Running pre-flight checks
 [preflight] Pulling images required for setting up a Kubernetes cluster
@@ -97,7 +98,6 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-```
 kubeadm join 192.168.122.3:6443 --token <kubeadm token list> --discovery-token-unsafe-skip-ca-verification
 ```
 
