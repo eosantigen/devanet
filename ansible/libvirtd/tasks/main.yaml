@@ -12,9 +12,9 @@
       - bridge-utils
       - python3-libvirt
       - python3-lxml
-    state: latest
+    state: present
   when: ansible_os_family == "Debian"
-  become: True
+  become: true
 
 - name: Enable and start libvirt daemons
   ansible.builtin.systemd:
@@ -24,7 +24,7 @@
     masked: no
     name: libvirtd
   when: ansible_os_family == "Debian"
-  become: True
+  become: true
 
 - name: Edit libvirt configs
   ansible.builtin.replace:
@@ -33,32 +33,32 @@
     regexp: '^.*hosts:.*$(?m)'
     replace: 'hosts: files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
   when: ansible_os_family == "Debian"
-  become: True
+  become: true
 
 ## Grab dynamically the DevaPC Ethernet interface to configure bridged networking
 
-- name: Bootstrap the bridge interface
-  community.general.nmcli:
-    conn_name: br0
-    ifname: br0
-    type: bridge
-    stp: no
-    method4: manual
-    ip4: 
-     - 192.168.1.11/24
-    gw4: "{{ ansible_default_ipv4.gateway }}"
-    dns4: "{{ item }}"
-    autoconnect: yes
-    state: present
-  with_items:
-   - "{{ ansible_dns.nameservers }}"
-  become: True
+# - name: Bootstrap the bridge interface
+#   community.general.nmcli:
+#     conn_name: br0
+#     ifname: br0
+#     type: bridge
+#     stp: no
+#     method4: manual
+#     ip4: 
+#      - 192.168.1.11/24
+#     gw4: "{{ ansible_default_ipv4.gateway }}"
+#     dns4: "{{ item }}"
+#     autoconnect: yes
+#     state: present
+#   with_items:
+#    - "{{ ansible_dns.nameservers }}"
+#   become: true
 
 - name: Enable the bridge default network
   community.libvirt.virt_net:
     name: default
     state: active
-  become: True
+  # become: true
 
 ### GLOBAL ###
 
@@ -71,7 +71,7 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-arptables
     value: '0'
-  become: True
+  become: true
 
 - name: Disable net.bridge.bridge-nf-call-iptables
   ansible.posix.sysctl:
@@ -82,7 +82,7 @@
     sysctl_set: yes
     name: net.bridge.bridge-nf-call-iptables
     value: '0'
-  become: True
+  become: true
 
 ## TODO
 ## Configure a vm on libvirt IF the previous role install_libvirt succeeds. ---> TBD
@@ -91,7 +91,7 @@
 
 - name: Destroy a storage volume & pool
   ansible.builtin.script: scripts/virsh_destroy.bash
-  become: true
+  # become: true
   ignore_errors: true
   tags: 
     - destroy
@@ -102,19 +102,22 @@
     name: "{{ item }}"
     xml: "{{ lookup('template', 'storage/{{ item }}.storage-pool.xml.j2') }}"
     uri: qemu:///system
+  # become: true
   with_items: "{{ libvirt_guest_names }}"
 
 - name: Start a storage pool
   community.libvirt.virt_pool:
     command: start
     name: "{{ item }}"
+  # become: true
   with_items: "{{ libvirt_guest_names }}"
 
 # Storage pool - volume
 
 - name: Create a storage pool volume (partition)
   ansible.builtin.script: scripts/virsh_create.bash
-  become: true
+  # become: true
+  ignore_errors: true
 
 # Domains (aka VM)
 
@@ -123,6 +126,7 @@
     command: define
     xml: "{{ lookup('template', 'domains/{{ item }}.xml.j2') }}"
     uri: qemu:///system
+  # become: true
   with_items: "{{ libvirt_guest_names }}"
 
 - name: Start domain
@@ -131,6 +135,6 @@
     state: running
     autostart: no
     uri: 'qemu:///system'
+  # become: true
   with_items: "{{ libvirt_guest_names }}"
-  become: true
 ...

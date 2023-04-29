@@ -25,7 +25,7 @@ nmcli connection show Wired\ connection\ 1
 ```
 Hostname: DevaPC
 OS: Ubuntu 22.10
-IP CIDR: 192.168.1.0/24
+IP CIDR: 192.168.1.5/24
 Gateway: 192.168.1.254
 DNS: 192.168.1.254
 ```

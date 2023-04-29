@@ -5,6 +5,15 @@ _(or: My PC as a hypervisor with nested VMs)_
 ## Setup
 
 1. Create the base VM with the Ansible playbook _(run this playbook only once, as it re-creates the VM each time)_
+
+NOTE: Edit `/etc/libvirt/qemu.conf` to contain these to make your life easier:
+```
+user = "eosantigen"
+group = "eosantigen"
+security_driver = "none"
+```
+`sudo systemctl restart libvirtd`
+
 2. `cd docker/domain; docker compose up`
 3. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
 4. Login with domain "devanet" (LDAP) on https://192.168.122.2:8006
