@@ -7,7 +7,7 @@ Netplan uses NetworkManager to handle the connections, so, in `/etc/NetworkManag
 ```
 [ipv4]
 # method=auto
-addresses=192.168.1.5/24
+addresses=192.168.1.10/24
 gateway=192.168.1.254
 dns=192.168.1.254
 method=manual
