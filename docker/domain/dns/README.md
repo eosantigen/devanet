@@ -27,6 +27,7 @@ The mandatory option of __@server__ may be ommitted if:
 ```
 DNS=127.0.0.1#53
 FallbackDNS=127.0.0.1#53
+Domains=devanet
 ```
 
 2. Run `systemctl restart systemd-resolved.service` .
@@ -40,6 +41,7 @@ Global
   Current DNS Server: 127.0.0.1#53
          DNS Servers: 127.0.0.1#53
 Fallback DNS Servers: 127.0.0.1#53
+          DNS Domain: devanet
 
 Link 2 (eno1)
     Current Scopes: DNS
@@ -66,16 +68,16 @@ Break down various services running on Docker into custom bridge nets and play w
 
 ### Testing blocked IPs from querying the DevaNet DNS server
 
-We have ACL in the DNS config that has not yet allowed source IP other than itself (192.168.1.5) to call this service. For example:
+We have ACL in the DNS config that has not yet allowed source IP other than itself (192.168.1.10) to call this service. For example:
 
 **From the the default bridged network 192.168.122.0/24**
 
 The Proxmox base VM, pve.devanet, has IP : `192.168.122.2` . Same will be for the kc1.devanet `192.168.122.3`
 
 ```
-root@pve:~# dig @192.168.1.5 ldap
+root@pve:~# dig @192.168.1.10 ldap
 
-; <<>> DiG 9.16.33-Debian <<>> @192.168.1.5 ldap
+; <<>> DiG 9.16.33-Debian <<>> @192.168.1.10 ldap
 ; (1 server found)
 ......................
 ; EDE: 18 (Prohibited)
@@ -83,7 +85,7 @@ root@pve:~# dig @192.168.1.5 ldap
 ;ldap.				IN	A
 
 ;; Query time: 3 msec
-;; SERVER: 192.168.1.5#53(192.168.1.5)
+;; SERVER: 192.168.1.10#53(192.168.1.10)
 ```
 This returns:
 

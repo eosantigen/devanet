@@ -24,6 +24,6 @@ options {
     allow-query { DevaPC-Docker-Host-Net; };
     allow-transfer { DevaPC-Docker-Host-Net; };
     recursion yes;
-    dnssec-validation auto;
+    dnssec-validation no;
     listen-on { any; };
 };
