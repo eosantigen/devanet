@@ -1,11 +1,11 @@
 ---
-
 - hosts: "{{ node }}"
 
   roles:
     - libvirtd
 
-  vars_prompt:
-    - name: node
-      prompt: single host || group of hosts
-      private: no
+  # vars_prompt:
+  #   - name: node
+  #     prompt: single host || group of hosts
+  #     private: no
+...

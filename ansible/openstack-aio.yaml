@@ -1,0 +1,40 @@
+---
+# Steps taken from https://docs.openstack.org/openstack-ansible/zed/user/aio/quickstart.html
+
+- name: Bootstrap an Openstack All-In-One default environment.
+  hosts: os.devanet
+  become: true
+
+  vars:
+    os_version: stable/zed
+    osa_repo: https://opendev.org/openstack/openstack-ansible
+    osa_repo_version: "{{ os_version }}"
+    osa_dir: /opt/openstack-ansible
+
+  tasks:
+    - name: Clone the official Openstack-Ansible repository
+      ansible.builtin.git:
+        repo: "{{ osa_repo }}"
+        dest: "{{ osa_dir }}"
+        version: "{{ osa_repo_version }}"
+        update: no # TODO investigate if it'll break anything.
+
+    - name: Run the Ansible bootstrap script
+      ansible.builtin.shell: scripts/bootstrap-ansible.sh
+      args:
+        chdir: "{{ osa_dir }}"
+
+    - name: Run the AIO bootstrap script
+      ansible.builtin.shell: scripts/bootstrap-aio.sh
+      args:
+        chdir: "{{ osa_dir }}"
+    
+    - name: Run the playbooks
+      ansible.builtin.shell: "openstack-ansible {{ item }}"
+      loop:
+      - setup-hosts.yml
+      - setup-infrastructure.yml
+      - setup-openstack.yml
+      args:
+        chdir: "{{ osa_dir }}/playbooks"
+...

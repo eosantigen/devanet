@@ -1,3 +1,4 @@
-[submodule "ansible/openstack/official-github"]
-	path = ansible/openstack/official-github
+[submodule "ansible/openstack/official"]
+	path = ansible/openstack/official
 	url = https://opendev.org/openstack/openstack-ansible
+	ignore = all

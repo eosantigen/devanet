@@ -1,0 +1,4 @@
+- Add my own local domain certificate on the web consoles.
+- Maybe split libvirtd.yaml tasks of kernel settings.
+- Unified inventory for everything.
+- Configure LDAP for Openstack

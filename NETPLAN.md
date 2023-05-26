@@ -1,6 +1,6 @@
 # DevaNet
 
-Initially, it runs on the libvirt default NAT-based bridge network **192.168.122.0/24** . There is no DHCP, only static IP, for the nested VMs launched within this net, via a bridge.
+Initially, it runs on the `libvirt` default NAT-based bridge network **192.168.122.0/24** . There is no DHCP, only static IP, for the nested VMs launched within this net, via a bridge.
 
 The setup also includes 2 Docker containers, a DNS server (with Bind9) and an LDAP server, that run on the base host, and are reachable from this net, as well. The purpose of the DNS server is mainly for experimentation but the LDAP server is also meant to provide a unified auth account base for easy usage across various applications.
 

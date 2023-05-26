@@ -1,12 +1,10 @@
-# DevaNet: A mini cloud in a PC.
-
-_(or: My PC as a hypervisor with nested VMs)_
+# DevaNet: Virtualisation Testbed
 
 ## Setup
 
-1. Create the base VM with the Ansible playbook _(run this playbook only once, as it re-creates the VM each time)_
+### One-off configurations
 
-NOTE: Edit `/etc/libvirt/qemu.conf` to contain these to make your life easier:
+To make your life easier, edit `/etc/libvirt/qemu.conf` to contain these:
 ```
 user = "eosantigen"
 group = "eosantigen"
@@ -14,11 +12,28 @@ security_driver = "none"
 ```
 `sudo systemctl restart libvirtd`
 
-2. `cd docker/domain; docker compose up`
-3. Auto-boot is disabled, so, on each reboot of the host, start the base VM with: `sudo virsh start devanet`
-4. Login with domain "devanet" (LDAP) on https://192.168.122.2:8006
+Create the base VM with the Ansible playbook _(run this playbook only once, as it re-creates the VM each time)_
 
-## Study themes and projects
+`ansible-playbook libvirtd.yaml -e node=DevaPC`
+
+### Steps to start the ecosystem
+
+1. `cd docker/domain; docker compose up`
+2. Auto-boot is disabled, so, on each reboot of the base host, start the base VM with: `virsh pool-start devanet && virsh start devanet`
+
+#### On Proxmox
+
+Launch https://192.168.122.2:8006 and login with domain `devanet` _(LDAP)_ .
+
+#### On Openstack
+
+Launch https://192.168.122.2 and login as `admin` with password found under `/etc/openstack_deploy/user_secrets.yml` (`keystone_auth_admin_password`).
+
+---
+
+## Aim of this project
+
+To have fun by examining configurations of the following (_to some possible extend, at least_):
 
 - [libvirt](https://libvirt.org/docs.html)
 - [Openstack](https://www.openstack.org/)
