@@ -1,4 +1,5 @@
 - Add my own local domain certificate on the web consoles.
-- Maybe split libvirtd.yaml tasks of kernel settings.
+- Maybe split libvirtd.yaml tasks of other settings.
 - Unified inventory for everything.
 - Configure LDAP for Openstack
+- Change domain of hypervisor "aio1.openstack.local" to aio1.openstack.devanet

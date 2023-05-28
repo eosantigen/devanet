@@ -24,7 +24,7 @@ nmcli connection show Wired\ connection\ 1
 ---
 ```
 Hostname: DevaPC
-OS: Ubuntu 22.10
+OS: Ubuntu 22.04 Jammy
 IP CIDR: 192.168.1.5/24
 Gateway: 192.168.1.254
 DNS: 192.168.1.254
@@ -39,8 +39,8 @@ Memory: 24GB
 ### Connection details
 
 ```
-Hostname: pve.devanet
-OS: Proxmox VE 7.3_3
+Hostname: (for Proxmox) pve.devanet / (for Openstack) os.devanet
+OS: Proxmox VE 7.3_3 / Ubuntu Server 22.04.2 LTS
 IP CIDR: 192.168.122.2/24
 Gateway: 192.168.122.1
 DNS: 192.168.122.1

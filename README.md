@@ -20,6 +20,7 @@ Create the base VM with the Ansible playbook _(run this playbook only once, as i
 
 1. `cd docker/domain; docker compose up`
 2. Auto-boot is disabled, so, on each reboot of the base host, start the base VM with: `virsh pool-start devanet && virsh start devanet`
+3. Get a VNC connection to `localhost:9090` and opt accordingly (reinstall or `ctrl+alt+delete`->option 2 to start the installed system.)
 
 #### On Proxmox
 

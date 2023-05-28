@@ -1,7 +1,7 @@
 ---
 # Steps taken from https://docs.openstack.org/openstack-ansible/zed/user/aio/quickstart.html
 
-- name: Bootstrap an Openstack All-In-One default environment.
+- name: Bootstrap an Openstack All-In-One default environment (bare-metal scenario).
   hosts: os.devanet
   become: true
 
@@ -17,7 +17,7 @@
         repo: "{{ osa_repo }}"
         dest: "{{ osa_dir }}"
         version: "{{ osa_repo_version }}"
-        update: no # TODO investigate if it'll break anything.
+        update: no
 
     - name: Run the Ansible bootstrap script
       ansible.builtin.shell: scripts/bootstrap-ansible.sh
@@ -25,7 +25,7 @@
         chdir: "{{ osa_dir }}"
 
     - name: Run the AIO bootstrap script
-      ansible.builtin.shell: scripts/bootstrap-aio.sh
+      ansible.builtin.shell: export SCENARIO='aio_metal_horizon_metal'; scripts/bootstrap-aio.sh # if metal it missed out horizon..
       args:
         chdir: "{{ osa_dir }}"
     
@@ -37,4 +37,6 @@
       - setup-openstack.yml
       args:
         chdir: "{{ osa_dir }}/playbooks"
+
+# Afterwards, edit inventory/inventory.ini and add the auto-configured hostname "aio1" under heat_* ... to add Heat Engine and API.
 ...
