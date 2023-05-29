@@ -25,7 +25,7 @@
         chdir: "{{ osa_dir }}"
 
     - name: Run the AIO bootstrap script
-      ansible.builtin.shell: export SCENARIO='aio_metal_horizon_metal'; scripts/bootstrap-aio.sh # if metal it missed out horizon..
+      ansible.builtin.shell: export SCENARIO='aio_metal_horizon_heat_metal'; scripts/bootstrap-aio.sh # if metal, it missed out horizon..
       args:
         chdir: "{{ osa_dir }}"
     
@@ -37,6 +37,4 @@
       - setup-openstack.yml
       args:
         chdir: "{{ osa_dir }}/playbooks"
-
-# Afterwards, edit inventory/inventory.ini and add the auto-configured hostname "aio1" under heat_* ... to add Heat Engine and API.
 ...
