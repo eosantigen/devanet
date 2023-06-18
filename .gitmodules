@@ -1,4 +1,4 @@
-[submodule "ansible/openstack/official"]
-	path = ansible/openstack/official
-	url = https://opendev.org/openstack/openstack-ansible
+[submodule "ansible/kubespray"]
+	path = ansible/kubespray
+	url = https://github.com/kubernetes-sigs/kubespray.git
 	ignore = all

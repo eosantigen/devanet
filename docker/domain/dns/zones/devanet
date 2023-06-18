@@ -21,4 +21,12 @@ ns.devanet.          IN      A      192.168.1.10
 
 ldap.devanet.        IN      A      192.168.1.10
 jenkins.devanet.     IN      A      192.168.1.10
-os.devanet.          IN      A      192.168.122.2
+pve.devanet.         IN      A      192.168.122.2
+kc1.devanet.         IN      A      192.168.122.3
+kw1.devanet.         IN      A      192.168.122.4
+
+; Kubernetes Ingress Nginx Resources
+
+argocd.devanet.          IN  CNAME  kw1
+grpc.argocd.devanet.     IN  CNAME  kw1
+tarot.devanet            IN  CNAME  kw1

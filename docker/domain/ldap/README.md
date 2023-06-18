@@ -30,4 +30,4 @@ or,
 
 ### Proxmox
 
-Given the tree here, you need to add **cn** as the User Attribute Name. Add a new group and give it a newly created permission LDAP_ADMIN for the / with Propagate.
+Given the tree here, you need to add **cn** as the User Attribute Name. Don't forget to Sync . Under Permissions tab, add User Permission for this user for / with Propagate.

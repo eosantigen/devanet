@@ -1,5 +1,14 @@
 # GUIDELINES / TROUBLESHOOTING
 
+**KUBESPRAY**
+
+`.venv/bin/ansible-playbook -i inventory/devanet/inventory.ini cluster.yml --user=eosantigen --ask-pass --become -v -K`
+
+`.venv/bin/ansible-playbook -i inventory/devanet/inventory.ini reset.yml --user=eosantigen --ask-pass --become -v -K`
+
+---
+**KUBEADM**
+
 ## 1 - PREFLIGHT CHECKS
 
 In case kubeadm init fails the pre-flight check for kernel options:
