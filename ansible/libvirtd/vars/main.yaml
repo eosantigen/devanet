@@ -2,7 +2,7 @@
 #  - devanet
 libvirt_guest_names:
   - devanet
-boot_img_location: /home/eosantigen/Downloads/proxmox-ve_7.3-1.iso
-# boot_img_location: /home/eosantigen/Downloads/ubuntu-22.04.2-live-server-amd64.iso
+# boot_img_location: /home/eosantigen/Downloads/proxmox-ve_7.3-1.iso
+boot_img_location: /home/eosantigen/Downloads/ubuntu-22.04.2-live-server-amd64.iso
 libvirt_guest_memory_gib: 24
 libvirt_guest_cpu_count: 8

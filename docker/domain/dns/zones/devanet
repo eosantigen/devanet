@@ -22,6 +22,7 @@ ns.devanet.          IN      A      192.168.1.10
 ldap.devanet.        IN      A      192.168.1.10
 jenkins.devanet.     IN      A      192.168.1.10
 pve.devanet.         IN      A      192.168.122.2
+os.devanet.          IN      A      192.168.122.2
 kc1.devanet.         IN      A      192.168.122.3
 kw1.devanet.         IN      A      192.168.122.4
 

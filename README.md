@@ -16,6 +16,11 @@ Create the base VM with the Ansible playbook _(run this playbook only once, as i
 
 `ansible-playbook libvirtd.yaml -e node=DevaPC`
 
+
+### Install OpenStack
+
+After a clean Ubuntu Server installation, with the given specs and options, this command will take roughly 60' : `ansible-playbook -i inventory/devanet.ini openstack-aio.yaml --ask-pass -K`
+
 ### Steps to start the ecosystem
 
 1. `cd docker/domain; docker compose up`
