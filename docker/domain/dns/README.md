@@ -2,14 +2,24 @@
 
 ## Have to set a static IP for DevaPC
 
+Have also set a DHCP bind through the LAN router config, because otherwise the router didn't handle the DHCP lease distribution properly leading to conflicts .
+
+---
+
 Netplan uses NetworkManager to handle the connections, so, in `/etc/NetworkManager/system-connections/Wired\ connection\ 1.nmconnection` , the following must be:
 
 ```
 [ipv4]
 # method=auto
-addresses=192.168.1.10/24
+addresses=192.168.1.1/24
 gateway=192.168.1.254
 dns=192.168.1.254
+method=manual
+
+# or as of latest:
+
+address1=192.168.1.1/24,192.168.1.254
+dns=192.168.1.254;
 method=manual
 ```
 And then:
@@ -68,16 +78,16 @@ Break down various services running on Docker into custom bridge nets and play w
 
 ### Testing blocked IPs from querying the DevaNet DNS server
 
-We have ACL in the DNS config that has not yet allowed source IP other than itself (192.168.1.10) to call this service. For example:
+We have ACL in the DNS config that has not yet allowed source IP other than itself (192.168.1.1) to call this service. For example:
 
 **From the the default bridged network 192.168.122.0/24**
 
 The Proxmox base VM, pve.devanet, has IP : `192.168.122.2` . Same will be for the kc1.devanet `192.168.122.3`
 
 ```
-root@pve:~# dig @192.168.1.10 ldap
+root@pve:~# dig @192.168.1.1 ldap
 
-; <<>> DiG 9.16.33-Debian <<>> @192.168.1.10 ldap
+; <<>> DiG 9.16.33-Debian <<>> @192.168.1.1 ldap
 ; (1 server found)
 ......................
 ; EDE: 18 (Prohibited)
@@ -85,7 +95,7 @@ root@pve:~# dig @192.168.1.10 ldap
 ;ldap.				IN	A
 
 ;; Query time: 3 msec
-;; SERVER: 192.168.1.10#53(192.168.1.10)
+;; SERVER: 192.168.1.1#53(192.168.1.1)
 ```
 This returns:
 

@@ -10,17 +10,17 @@ $TTL    604800
 @  IN      NS      ns.devanet.
 
 ; IP address of your DNS
-ns              IN      A       192.168.1.10
+ns              IN      A       192.168.1.1
 
 
 ; name servers - A records
 
-ns.devanet.          IN      A      192.168.1.10
+ns.devanet.          IN      A      192.168.1.1
 
 ; hosts - A records
 
-ldap.devanet.        IN      A      192.168.1.10
-jenkins.devanet.     IN      A      192.168.1.10
+ldap.devanet.        IN      A      192.168.1.1
+jenkins.devanet.     IN      A      192.168.1.1
 pve.devanet.         IN      A      192.168.122.2
 os.devanet.          IN      A      192.168.122.2
 kc1.devanet.         IN      A      192.168.122.3
