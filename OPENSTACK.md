@@ -77,14 +77,15 @@ It will look like this:
 ![router](./media/openstack/public-router.png)
 ![publicnet](./media/openstack/public-net.png)
 ![publicports](./media/openstack/public-ports.png)
+![privateports](./media/openstack/private-ports.png)
 
 3. Launch some instance in the private network (always)...
 
-4. Lastly, add a Floating IP and bind it to your previously launched instance.
+4. Lastly, add a Floating IP (a one-to-one NAT) and bind it to your previously launched instance. 
 
 ## Connectivity to the private net
 
-Because we haven't yet set up connectivity to the VM from the base host (`DevaPC/192.168.1.1`) via its Floating IP (via one-to-one NAT), then we can do the following:
+Because we haven't yet set up connectivity to the VM from the base host (`DevaPC/192.168.1.1`) via its Floating IP, then we can do the following:
 
 Use the `os.devanet` / `192.168.122.2`, that hosts the all-in-one Openstack deployment, as a jump host!
 
