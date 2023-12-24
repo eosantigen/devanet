@@ -63,3 +63,40 @@ Try logging in as `eos.antigen` on domain `devanet` . It should say something li
 - List users under the `default` domain: `openstack user list --domain default --insecure`
 
 - Create `devanet` domain: `openstack domain create --description "For Personal Development --insecure" devanet`
+
+# Networking
+
+1. Create private net, not Shared, not External. Add a subnet to it, with DNS Name Servers `192.168.1.1` _(our base host DevaPC...)_
+
+2. Create a public router for the External Network 'public' with default options. In it, add an `Internal Interface` **from the private net**.
+
+It will look like this:
+
+![topology](./media/openstack/topology.png)
+![nets](./media/openstack/nets.png)
+![router](./media/openstack/public-router.png)
+![publicnet](./media/openstack/public-net.png)
+![publicports](./media/openstack/public-ports.png)
+
+3. Launch some instance in the private network (always)...
+
+4. Lastly, add a Floating IP and bind it to your previously launched instance.
+
+## Connectivity to the private net
+
+Because we haven't yet set up connectivity to the VM from the base host (`DevaPC/192.168.1.1`) via its Floating IP (via one-to-one NAT), then we can do the following:
+
+Use the `os.devanet` / `192.168.122.2`, that hosts the all-in-one Openstack deployment, as a jump host!
+
+`ssh -J os.devanet 172.29.249.145`
+
+(If you've configured your ssh keys accordingly, the also add the flag `-A`, to do ssh-agent forwarding.)
+
+The `os.devanet` has the appropriate routing information to locate your VMs in your private net.
+
+---
+
+- Internet connectivity: Works
+- DNS resolution via our own dns container instance: Works like a charm
+
+![connectivity](./media/openstack/connectivity.png)
