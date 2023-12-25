@@ -52,6 +52,8 @@ Now, logout, and the textfield for the domain input will appear. (there is a dro
 
 ## Test LDAP Connection
 
+Firstly, LDAP must be configured on the ldap container instance as per [this](https://github.com/eosantigen/devanet/blob/main/docker/domain/ldap/README.md)
+
 Try logging in as `eos.antigen` on domain `devanet` . It should say something like "_you have no permissions for this domain."_  . For this, login as `admin` under `default` domain and go to Identity -> Domains -> Set domain context (devanet) -> Manage Members -> it should be able to see the user `eos.antigen`. So now you should be able to log back as `eos.antigen`.
 
 ## CLI
