@@ -30,7 +30,10 @@ systemctl reload-or-restart systemd-networkd.service
 
 ## Test DNS Resolution via the container
 
-If this fetches the record, `dig @localhost ldap.devanet` or `dig @DevaPC ldap.devanet` (provided it resolves to `127.0.0.1` in `/etc/hosts`), containing `SERVER: 127.0.0.1#53(DevaPC) (UDP)` , then it works!
+If, `dig @localhost ldap.devanet` or `dig @DevaPC ldap.devanet` (provided that DevaPC resolves to `127.0.0.1` in `/etc/hosts`)
+
+returns our record and also reports `SERVER: 127.0.0.1#53(DevaPC) (UDP)` , then it works!
+
 The mandatory option of __@server__ may be ommitted if:
 
 1. In `/etc/systemd/resolved.conf` we add:
@@ -40,7 +43,7 @@ FallbackDNS=127.0.0.1#53
 Domains=devanet
 ```
 
-2. Run `systemctl restart systemd-resolved.service` .
+2. Run `systemctl reload-or-restart systemd-resolved.service` .
 
 3. Check with `resolvectl` :
 
@@ -66,15 +69,13 @@ It will now work as `dig ldap.devanet` .
 
 ## Use case 1
 
-We need DevaPC (the DevaNet "platform" base host) to use the *dns* and the *ldap* instances which run in containers on it.
+We need DevaPC (the DevaNet base host) to use the *dns* and the *ldap* instances which run in containers on it.
 
 Along, we also need the container's DNS information to be injected into the containers, so that they will resolve each other's name (as is not possible with `NetworkMode: host`). => TODO: for this maybe the base host resolver needs to be tweaked.
 
 ## Use case 2
 
 Break down various services running on Docker into custom bridge nets and play with them in acl.
-
-## Explanation
 
 ### Testing blocked IPs from querying the DevaNet DNS server
 
