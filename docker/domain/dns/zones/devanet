@@ -31,3 +31,7 @@ kw1.devanet.         IN      A      192.168.122.4
 argocd.devanet.          IN  CNAME  kw1
 grpc.argocd.devanet.     IN  CNAME  kw1
 tarot.devanet            IN  CNAME  kw1
+
+; Openstack Floating IPs
+
+gitlab.devanet.          IN  A     172.29.249.145
