@@ -2,11 +2,7 @@
 
 Initially, it runs on the `libvirt` default NAT-based bridge network **192.168.122.0/24** . There is no DHCP, only static IP, for the nested VMs launched within this net, via a bridge.
 
-The setup also includes 2 Docker containers, a DNS server (with Bind9) and an LDAP server, that run on the base host, and are reachable from this net, as well. The purpose of the DNS server is mainly for experimentation but the LDAP server is also meant to provide a unified auth account base for easy usage across various applications.
-
-**Network Setup Overview**
-
-![Overview 1](./media/devanet_overview.png)
+The setup also includes 2 Docker containers, a DNS server (with Bind9) and an LDAP server, that run on the base host, and are reachable from this net, as well. The purpose of the DNS server is for ease of addressing and the LDAP server is also meant to provide a unified auth account base for easy usage across various applications.
 
 ## Base Host - DevaPC
 
@@ -18,29 +14,27 @@ Memory speed: (4 x 8192 MB) @ 2133 MT/s each
 ### Connection details
 This is using NetworkManager via Netplan to manage networking so we can use the following command to check details:
 ```
-nmcli connection
 nmcli connection show Wired\ connection\ 1
 ```
----
 ```
 Hostname: DevaPC
 OS: Ubuntu 22.04 Jammy
-IP CIDR: 192.168.1.5/24
+IP CIDR: 192.168.1.1/24
 Gateway: 192.168.1.254
 DNS: 192.168.1.254
 ```
-## Base VM - Proxmox VE
+## Base VM with ProxmoxVE
 
 ### Specs
 
-CPU: 8
-Memory: 24GB
+- CPU: 8
+- Memory: 24GB
 
 ### Connection details
 
 ```
-Hostname: (for Proxmox) pve.devanet / (for Openstack) os.devanet
-OS: Proxmox VE 7.3_3 / Ubuntu Server 22.04.2 LTS
+Hostname: pve.devanet
+OS: Proxmox VE 7.3_3
 IP CIDR: 192.168.122.2/24
 Gateway: 192.168.122.1
 DNS: 192.168.122.1
@@ -50,7 +44,6 @@ DNS: 192.168.122.1
 ### Specs
 
 - CPU: 2 - 4 (limit)
-
 - Memory: 6GB
 
 ```
@@ -66,7 +59,6 @@ DNS: 192.168.122.1
 ### Specs
 
 - CPU: 2 - 4 (limit)
-
 - Memory: 6GB
 
 ```
@@ -75,4 +67,17 @@ OS: Ubuntu Server 22.10
 IP CIDR: 192.168.122.4/24
 Gateway: 192.168.122.1
 DNS: 192.168.122.1
+```
+---
+## Base VM with Openstack All-In-One
+
+### Specs
+
+(same as the Proxmox case.)
+
+### Connection details
+```
+Hostname: os.devanet
+OS: Ubuntu Server 22.04.2 LTS
+(same as the Proxmox case.)
 ```
