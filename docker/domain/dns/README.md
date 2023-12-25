@@ -24,8 +24,8 @@ method=manual
 ```
 And then:
 ```
-systemctl restart NetworkManager.service
-systemctl restart systemd-networkd.service
+systemctl reload-or-restart NetworkManager.service
+systemctl reload-or-restart systemd-networkd.service
 ```
 
 ## Test DNS Resolution via the container
