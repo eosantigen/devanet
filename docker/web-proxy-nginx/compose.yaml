@@ -1,0 +1,10 @@
+services:
+  web-proxy-nginx:
+    image: nginx:stable-bullseye
+    container_name: web-proxy-nginx
+    hostname: web-proxy-nginx
+    network_mode: host
+    volumes:
+      - ../../ssl/devanet.pem:/etc/ssl/certs/devanet.pem
+      - ../../ssl/devanet.key:/etc/ssl/private/devanet.key
+      - ./devaweb.nginx.conf:/etc/nginx/conf.d/devaweb.nginx.conf
