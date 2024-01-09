@@ -1,0 +1,215 @@
+● aio1
+    State: running
+     Jobs: 0 queued
+   Failed: 0 units
+    Since: Tue 2024-01-09 14:30:40 UTC; 2h 43min ago
+   CGroup: /
+           ├─cinder.slice 
+           │ ├─cinder-volume.service 
+           │ │ ├─89513 /openstack/venvs/cinder-26.4.1.dev1/bin/python3 /openstack/venvs/cinder-26.4.1.dev1/bin/cinder-volume
+           │ │ └─89581 /openstack/venvs/cinder-26.4.1.dev1/bin/python3 /openstack/venvs/cinder-26.4.1.dev1/bin/cinder-volume
+           │ └─cinder-scheduler.service 
+           │   └─89982 /openstack/venvs/cinder-26.4.1.dev1/bin/python3 /openstack/venvs/cinder-26.4.1.dev1/bin/cinder-scheduler
+           ├─galera.slice 
+           │ └─mariadb.service 
+           │   └─64369 /usr/sbin/mariadbd --wsrep-new-cluster --wsrep_start_position=00000000-0000-0000-0000-000000000000:-1
+           ├─user.slice 
+           │ └─user-1000.slice 
+           │   ├─session-86.scope 
+           │   │ ├─132527 sshd: eosantigen [priv]
+           │   │ ├─132591 sshd: eosantigen@pts/1
+           │   │ ├─132592 -bash
+           │   │ ├─132722 sudo su
+           │   │ ├─132731 sudo su
+           │   │ ├─132732 su
+           │   │ ├─132733 bash
+           │   │ └─143361 systemctl status
+           │   ├─user@1000.service …
+           │   │ └─init.scope 
+           │   │   ├─1463 /lib/systemd/systemd --user
+           │   │   └─1464 (sd-pam)
+           │   └─session-83.scope 
+           │     ├─   774 /bin/login -p --
+           │     ├─131901 -bash
+           │     ├─132341 sudo su
+           │     ├─132342 sudo su
+           │     ├─132343 su
+           │     └─132344 bash
+           ├─memcached.slice 
+           │ └─memcached.service 
+           │   └─61179 /usr/bin/memcached -vv -U 0 -m 1024 -p 11211 -u memcache -l 172.29.236.100 -c 4096 -t 4
+           ├─neutron.slice 
+           │ ├─neutron-ovn-metadata-agent.service 
+           │ │ ├─117755 neutron-ovn-metadata-agent (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-ovn-metadata-agent --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini --config-file /etc/neutron/neutron_ovn_metadata_agent.ini)
+           │ │ └─117809 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini --config-file /etc/neutron/neutron_ovn_metadata_agent.ini --privsep_context neutron.privileged.namespace_cmd --privsep_sock_path /tmp/tmp2fvcfa38/privsep.sock
+           │ └─neutron-server.service 
+           │   ├─135650 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini
+           │   ├─135657 neutron-server: api worker (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini)
+           │   ├─135659 neutron-server: rpc worker (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini)
+           │   ├─135660 neutron-server: rpc worker (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini)
+           │   ├─135661 neutron-server: MaintenanceWorker (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini)
+           │   └─135662 neutron-server: periodic worker (/openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-server --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini)
+           ├─heat.slice 
+           │ └─heat-engine.service 
+           │   └─122717 /openstack/venvs/heat-26.4.1.dev1/bin/python3 /openstack/venvs/heat-26.4.1.dev1/bin/heat-engine
+           ├─init.scope 
+           │ └─1 /sbin/init
+           ├─system.slice 
+           │ ├─irqbalance.service 
+           │ │ └─32019 /usr/sbin/irqbalance --foreground
+           │ ├─apache2.service 
+           │ │ ├─125323 /usr/sbin/apache2 -k start
+           │ │ ├─125324 logger -p daemon info -t apache2
+           │ │ ├─125325 logger -p daemon info -t apache2
+           │ │ ├─125326 /usr/sbin/apache2 -k start
+           │ │ ├─125327 /usr/sbin/apache2 -k start
+           │ │ └─125328 /usr/sbin/apache2 -k start
+           │ ├─ovsdb-server.service 
+           │ │ └─117512 ovsdb-server /etc/openvswitch/conf.db -vconsole:emer -vsyslog:err -vfile:info --remote=punix:/var/run/openvswitch/db.sock --private-key=db:Open_vSwitch,SSL,private_key --certificate=db:Open_vSwitch,SSL,certificate --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert --no-chdir --log-file=/var/log/openvswitch/ovsdb-server.log --pidfile=/var/run/openvswitch/ovsdb-server.pid --detach
+           │ ├─packagekit.service 
+           │ │ └─2071 /usr/libexec/packagekitd
+           │ ├─systemd-networkd.service 
+           │ │ └─18496 /lib/systemd/systemd-networkd
+           │ ├─systemd-udevd.service 
+           │ │ └─484 /lib/systemd/systemd-udevd
+           │ ├─neutron-metadata-agent.service 
+           │ │ ├─135832 neutron-metadata-agent (/usr/bin/python3 /usr/bin/neutron-metadata-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/metadata_agent.ini --log-file=/var/log/neutron/neutron-metadata-agent.log)
+           │ │ ├─135853 neutron-metadata-agent (/usr/bin/python3 /usr/bin/neutron-metadata-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/metadata_agent.ini --log-file=/var/log/neutron/neutron-metadata-agent.log)
+           │ │ ├─135854 neutron-metadata-agent (/usr/bin/python3 /usr/bin/neutron-metadata-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/metadata_agent.ini --log-file=/var/log/neutron/neutron-metadata-agent.log)
+           │ │ ├─135855 neutron-metadata-agent (/usr/bin/python3 /usr/bin/neutron-metadata-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/metadata_agent.ini --log-file=/var/log/neutron/neutron-metadata-agent.log)
+           │ │ └─135856 neutron-metadata-agent (/usr/bin/python3 /usr/bin/neutron-metadata-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/metadata_agent.ini --log-file=/var/log/neutron/neutron-metadata-agent.log)
+           │ ├─ovn-ovsdb-server-sb.service 
+           │ │ ├─114369 /bin/sh /usr/share/ovn/scripts/ovn-ctl run_sb_ovsdb --db-nb-create-insecure-remote=no --db-sb-create-insecure-remote=no --db-nb-addr=172.29.236.100 --db-sb-addr=172.29.236.100 --db-nb-cluster-local-addr=172.29.236.100 --db-sb-cluster-local-addr=172.29.236.100 --ovn-northd-nb-db=ssl:172.29.236.100:6641 --ovn-northd-sb-db=ssl:172.29.236.100:6642 --db-nb-cluster-remote-proto=ssl --db-sb-cluster-remote-proto=ssl --db-nb-cluster-local-proto=ssl --db-sb-cluster-local-proto=ssl --ovn-northd-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-northd-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-northd-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ovn-nb-db-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-nb-db-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-nb-db-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ovn-sb-db-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-sb-db-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-sb-db-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem
+           │ │ └─114813 ovsdb-server -vconsole:off -vfile:info --log-file=/var/log/ovn/ovsdb-server-sb.log --remote=punix:/var/run/ovn/ovnsb_db.sock --pidfile=/var/run/ovn/ovnsb_db.pid --unixctl=/var/run/ovn/ovnsb_db.ctl --remote=db:OVN_Southbound,SB_Global,connections --private-key=/etc/openvswitch/neutron_ovn.key --certificate=/etc/openvswitch/neutron_ovn.pem --ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ssl-protocols=db:OVN_Southbound,SSL,ssl_protocols --ssl-ciphers=db:OVN_Southbound,SSL,ssl_ciphers /var/lib/ovn/ovnsb_db.db
+           │ ├─cron.service 
+           │ │ └─711 /usr/sbin/cron -f -P
+           │ ├─ovn-ovsdb-server-nb.service 
+           │ │ ├─114368 /bin/sh /usr/share/ovn/scripts/ovn-ctl run_nb_ovsdb --db-nb-create-insecure-remote=no --db-sb-create-insecure-remote=no --db-nb-addr=172.29.236.100 --db-sb-addr=172.29.236.100 --db-nb-cluster-local-addr=172.29.236.100 --db-sb-cluster-local-addr=172.29.236.100 --ovn-northd-nb-db=ssl:172.29.236.100:6641 --ovn-northd-sb-db=ssl:172.29.236.100:6642 --db-nb-cluster-remote-proto=ssl --db-sb-cluster-remote-proto=ssl --db-nb-cluster-local-proto=ssl --db-sb-cluster-local-proto=ssl --ovn-northd-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-northd-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-northd-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ovn-nb-db-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-nb-db-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-nb-db-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ovn-sb-db-ssl-key=/etc/openvswitch/neutron_ovn.key --ovn-sb-db-ssl-cert=/etc/openvswitch/neutron_ovn.pem --ovn-sb-db-ssl-ca-cert=/etc/openvswitch/neutron_ovn-ca.pem
+           │ │ └─114817 ovsdb-server -vconsole:off -vfile:info --log-file=/var/log/ovn/ovsdb-server-nb.log --remote=punix:/var/run/ovn/ovnnb_db.sock --pidfile=/var/run/ovn/ovnnb_db.pid --unixctl=/var/run/ovn/ovnnb_db.ctl --remote=db:OVN_Northbound,NB_Global,connections --private-key=/etc/openvswitch/neutron_ovn.key --certificate=/etc/openvswitch/neutron_ovn.pem --ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --ssl-protocols=db:OVN_Northbound,SSL,ssl_protocols --ssl-ciphers=db:OVN_Northbound,SSL,ssl_ciphers /var/lib/ovn/ovnnb_db.db
+           │ ├─apache-htcacheclean.service 
+           │ │ └─73984 /usr/bin/htcacheclean -d 120 -p /var/cache/apache2/mod_cache_disk -l 300M -n
+           │ ├─nginx.service 
+           │ │ ├─58756 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           │ │ ├─58757 nginx: worker process
+           │ │ └─58758 nginx: worker process
+           │ ├─polkit.service 
+           │ │ └─721 /usr/libexec/polkitd --no-debug
+           │ ├─networkd-dispatcher.service 
+           │ │ └─720 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+           │ ├─auditd.service 
+           │ │ └─56255 /sbin/auditd
+           │ ├─multipathd.service 
+           │ │ └─479 /sbin/multipathd -d -s
+           │ ├─glusterd.service 
+           │ │ ├─57077 /usr/sbin/glusterd -p /var/run/glusterd.pid --log-level INFO
+           │ │ └─57222 /usr/sbin/glusterfsd -s aio1 --volfile-id gfs-repo.aio1.gluster-bricks-1 -p /var/run/gluster/vols/gfs-repo/aio1-gluster-bricks-1.pid -S /var/run/gluster/525cfd3a8463f553.socket --brick-name /gluster/bricks/1 -l /var/log/glusterfs/bricks/gluster-bricks-1.log --xlator-option *-posix.glusterd-uuid=639efee6-423a-42b7-a72f-8f785ba8ae57 --process-name brick --brick-port 58869 --xlator-option gfs-repo-server.listen-port=58869
+           │ ├─neutron-openvswitch-agent.service 
+           │ │ ├─135763 neutron-openvswitch-agent (/usr/bin/python3 /usr/bin/neutron-openvswitch-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/plugins/ml2/openvswitch_agent.ini --log-file=/var/log/neutron/neutron-openvswitch-agent.log)
+           │ │ ├─135781 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/openvswitch_agent.ini --privsep_context neutron.privileged.default --privsep_sock_path /tmp/tmp614ukwmw/privsep.sock
+           │ │ ├─135805 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/openvswitch_agent.ini --privsep_context neutron.privileged.ovs_vsctl_cmd --privsep_sock_path /tmp/tmp59mfnpa7/privsep.sock
+           │ │ └─135808 ovsdb-client monitor tcp:127.0.0.1:6640 Interface name,ofport,external_ids --format=json
+           │ ├─libvirtd.service 
+           │ │ └─110056 /usr/sbin/libvirtd
+           │ ├─ModemManager.service 
+           │ │ └─758 /usr/sbin/ModemManager
+           │ ├─systemd-journald.service 
+           │ │ └─10092 /lib/systemd/systemd-journald
+           │ ├─unattended-upgrades.service 
+           │ │ └─798 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+           │ ├─ssh.service 
+           │ │ └─56217 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+           │ ├─ovn-northd.service 
+           │ │ └─114807 ovn-northd --private-key=/etc/openvswitch/neutron_ovn.key --certificate=/etc/openvswitch/neutron_ovn.pem --ca-cert=/etc/openvswitch/neutron_ovn-ca.pem -vconsole:emer -vsyslog:err -vfile:info --ovnnb-db=ssl:172.29.236.100:6641 --ovnsb-db=ssl:172.29.236.100:6642 --no-chdir --log-file=/var/log/ovn/ovn-northd.log --pidfile=/var/run/ovn/ovn-northd.pid --detach
+           │ ├─ovn-controller.service 
+           │ │ └─114146 ovn-controller unix:/var/run/openvswitch/db.sock -vconsole:emer -vsyslog:err -vfile:info --private-key=/etc/openvswitch/neutron_ovn.key --certificate=/etc/openvswitch/neutron_ovn.pem --ca-cert=/etc/openvswitch/neutron_ovn-ca.pem --no-chdir --log-file=/var/log/ovn/ovn-controller.log --pidfile=/var/run/ovn/ovn-controller.pid --detach
+           │ ├─snapd.service 
+           │ │ └─725 /usr/lib/snapd/snapd
+           │ ├─systemd-machined.service 
+           │ │ └─93550 /lib/systemd/systemd-machined
+           │ ├─uuidd.service 
+           │ │ └─6689 /usr/sbin/uuidd --socket-activation
+           │ ├─rsyslog.service 
+           │ │ └─60455 /usr/sbin/rsyslogd -n -iNONE
+           │ ├─haproxy.service 
+           │ │ ├─ 7534 /usr/sbin/haproxy -sf 7536 -x /run/haproxy/admin.sock -Ws -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -S /run/haproxy-master.sock
+           │ │ └─60510 /usr/sbin/haproxy -sf 7536 -x /run/haproxy/admin.sock -Ws -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -S /run/haproxy-master.sock
+           │ ├─neutron-dhcp-agent.service 
+           │ │ ├─135814 neutron-dhcp-agent (/usr/bin/python3 /usr/bin/neutron-dhcp-agent --config-file=/etc/neutron/neutron.conf --config-file=/etc/neutron/dhcp_agent.ini --log-file=/var/log/neutron/neutron-dhcp-agent.log)
+           │ │ ├─135851 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/dhcp_agent.ini --privsep_context neutron.privileged.default --privsep_sock_path /tmp/tmpbpjcstqz/privsep.sock
+           │ │ ├─135861 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/dhcp_agent.ini --privsep_context neutron.privileged.namespace_cmd --privsep_sock_path /tmp/tmpqtv6qzi1/privsep.sock
+           │ │ ├─135872 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/privsep-helper --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/dhcp_agent.ini --privsep_context neutron.privileged.link_cmd --privsep_sock_path /tmp/tmpw7dcgtec/privsep.sock
+           │ │ ├─135946 sudo /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-rootwrap-daemon /etc/neutron/rootwrap.conf
+           │ │ ├─135947 /openstack/venvs/neutron-26.4.1.dev1/bin/python3 /openstack/venvs/neutron-26.4.1.dev1/bin/neutron-rootwrap-daemon /etc/neutron/rootwrap.conf
+           │ │ ├─135957 dnsmasq --no-hosts --no-resolv --pid-file=/var/lib/neutron/dhcp/96682d5e-5e45-49c6-bfb3-0efccbfe7f44/pid --dhcp-hostsfile=/var/lib/neutron/dhcp/96682d5e-5e45-49c6-bfb3-0efccbfe7f44/host --addn-hosts=/var/lib/neutron/dhcp/96682d5e-5e45-49c6-bfb3-0efccbfe7f44/addn_hosts --dhcp-optsfile=/var/lib/neutron/dhcp/96682d5e-5e45-49c6-bfb3-0efccbfe7f44/opts --dhcp-leasefile=/var/lib/neutron/dhcp/96682d5e-5e45-49c6-bfb3-0efccbfe7f44/leases --dhcp-match=set:ipxe,175 --dhcp-userclass=set:ipxe6,iPXE --local-service --bind-dynamic --dhcp-range=set:subnet-d07bd668-a7a3-4639-97aa-a81142225ba4,172.29.248.0,static,255.255.252.0,86400s --dhcp-option-force=option:mtu,1500 --dhcp-lease-max=1024 --conf-file=/dev/null --domain=devanet
+           │ │ ├─135973 haproxy -f /var/lib/neutron/ns-metadata-proxy/96682d5e-5e45-49c6-bfb3-0efccbfe7f44.conf
+           │ │ ├─136174 dnsmasq --no-hosts --no-resolv --pid-file=/var/lib/neutron/dhcp/05f71523-9269-4388-9db6-025d7c295e88/pid --dhcp-hostsfile=/var/lib/neutron/dhcp/05f71523-9269-4388-9db6-025d7c295e88/host --addn-hosts=/var/lib/neutron/dhcp/05f71523-9269-4388-9db6-025d7c295e88/addn_hosts --dhcp-optsfile=/var/lib/neutron/dhcp/05f71523-9269-4388-9db6-025d7c295e88/opts --dhcp-leasefile=/var/lib/neutron/dhcp/05f71523-9269-4388-9db6-025d7c295e88/leases --dhcp-match=set:ipxe,175 --dhcp-userclass=set:ipxe6,iPXE --local-service --bind-dynamic --dhcp-range=set:subnet-f3a68101-6791-49d8-ab49-c20aa5f34ebb,192.168.122.0,static,255.255.255.0,86400s --dhcp-option-force=option:mtu,1500 --dhcp-lease-max=256 --conf-file=/dev/null --domain=devanet
+           │ │ └─136196 haproxy -f /var/lib/neutron/ns-metadata-proxy/05f71523-9269-4388-9db6-025d7c295e88.conf
+           │ ├─tgt.service 
+           │ │ └─89570 /usr/sbin/tgtd -f
+           │ ├─rpcbind.service 
+           │ │ └─81518 /sbin/rpcbind -f -w
+           │ ├─var-www-repo.mount 
+           │ │ └─57603 /usr/sbin/glusterfs --process-name fuse --volfile-server=aio1 --volfile-id=gfs-repo /var/www/repo
+           │ ├─chrony.service 
+           │ │ ├─56202 /usr/sbin/chronyd -F 1
+           │ │ └─56203 /usr/sbin/chronyd -F 1
+           │ ├─system-postfix.slice 
+           │ │ └─postfix@-.service 
+           │ │   ├─ 36283 /usr/lib/postfix/sbin/master -w
+           │ │   ├─143202 pickup -l -t unix -u -c
+           │ │   └─143203 qmgr -l -t unix -u
+           │ ├─systemd-resolved.service 
+           │ │ └─10080 /lib/systemd/systemd-resolved
+           │ ├─rabbitmq-server.service 
+           │ │ ├─69482 /usr/lib/erlang/erts-13.0.4/bin/beam.smp -W w -MBas ageffcbf -MHas ageffcbf -MBlmbcs 512 -MHlmbcs 512 -MMmcs 30 -P 1048576 -- -root /usr/lib/erlang -bindir /usr/lib/erlang/erts-13.0.4/bin -progname erl -- -home /var/lib/rabbitmq -- -pa  -noshell -noinput -s rabbit boot -boot start_sasl -syslog logger [] -syslog syslog_error_logger false -kernel prevent_overlapping_partitions false
+           │ │ ├─69492 erl_child_setup 65536
+           │ │ ├─69533 /usr/lib/erlang/erts-13.0.4/bin/epmd -daemon
+           │ │ ├─69568 /usr/lib/erlang/erts-13.0.4/bin/inet_gethost 4
+           │ │ └─69569 /usr/lib/erlang/erts-13.0.4/bin/inet_gethost 4
+           │ ├─ovs-vswitchd.service 
+           │ │ └─117563 ovs-vswitchd unix:/var/run/openvswitch/db.sock -vconsole:emer -vsyslog:err -vfile:info --mlockall --no-chdir --log-file=/var/log/openvswitch/ovs-vswitchd.log --pidfile=/var/run/openvswitch/ovs-vswitchd.pid --detach
+           │ ├─udisks2.service 
+           │ │ └─731 /usr/libexec/udisks2/udisksd
+           │ ├─dbus.service 
+           │ │ └─712 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+           │ ├─virtlogd.service 
+           │ │ └─137913 /usr/sbin/virtlogd
+           │ └─systemd-logind.service 
+           │   └─728 /lib/systemd/systemd-logind
+           ├─uwsgi.slice 
+           │ ├─heat-api-cfn.service 
+           │ │ ├─122741 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/heat-api-cfn.ini
+           │ │ └─122742 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/heat-api-cfn.ini
+           │ ├─cinder-api.service 
+           │ │ ├─90123 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/cinder-api.ini
+           │ │ └─90126 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/cinder-api.ini
+           │ ├─nova-api-os-compute.service 
+           │ │ ├─110918 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/nova-api-os-compute.ini
+           │ │ └─110919 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/nova-api-os-compute.ini
+           │ ├─placement-api.service 
+           │ │ ├─80306 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/placement-api.ini
+           │ │ └─80309 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/placement-api.ini
+           │ ├─nova-api-metadata.service 
+           │ │ ├─110909 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/nova-api-metadata.ini
+           │ │ └─110912 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/nova-api-metadata.ini
+           │ ├─keystone-wsgi-public.service 
+           │ │ ├─78112 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/keystone-wsgi-public.ini
+           │ │ ├─78114 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/keystone-wsgi-public.ini
+           │ │ └─78115 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/keystone-wsgi-public.ini
+           │ ├─glance-api.service 
+           │ │ ├─84305 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/glance-api.ini
+           │ │ └─84308 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/glance-api.ini
+           │ └─heat-api.service 
+           │   ├─122729 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/heat-api.ini
+           │   └─122733 /openstack/venvs/uwsgi-26.4.1.dev1-python3/bin/uwsgi --autoload --ini /etc/uwsgi/heat-api.ini
+           └─nova.slice 
+             ├─nova-compute.service 
+             │ ├─110937 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/nova-compute
+             │ ├─137866 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/privsep-helper --config-file /etc/nova/nova.conf --privsep_context nova.privsep.sys_admin_pctxt --privsep_sock_path /tmp/tmp6zikoftm/privsep.sock
+             │ └─137891 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/privsep-helper --config-file /etc/nova/nova.conf --privsep_context vif_plug_ovs.privsep.vif_plug --privsep_sock_path /tmp/tmpv8v3e537/privsep.sock
+             ├─nova-conductor.service 
+             │ └─110959 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/nova-conductor
+             ├─nova-novncproxy.service 
+             │ └─110966 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/nova-novncproxy
+             └─nova-scheduler.service 
+               └─110980 /openstack/venvs/nova-26.4.1.dev1/bin/python3 /openstack/venvs/nova-26.4.1.dev1/bin/nova-scheduler

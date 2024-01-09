@@ -1,0 +1,4 @@
+---
+openstack_domain: openstack.devanet
+dhcp_domain: devanet
+...

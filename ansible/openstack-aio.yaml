@@ -6,12 +6,37 @@
   become: true
 
   vars:
+
     os_version: stable/zed
     osa_repo: https://opendev.org/openstack/openstack-ansible
     osa_repo_version: "{{ os_version }}"
     osa_dir: /opt/openstack-ansible
+    # Those packages are needed if we need to enable the Modular Layer 2 (ML2) plug-in - for provider network.
+    os_dependencies:
+    - neutron-plugin-ml2
+    - neutron-openvswitch-agent
+    - neutron-dhcp-agent
+    - neutron-metadata-agent
 
   tasks:
+  
+    - name: Install dependencies
+      ansible.builtin.apt:
+        update_cache: yes
+        name: "{{ item }}"
+      loop: "{{ os_dependencies }}"
+
+    - name: Enable and unmask Neutron agents
+      ansible.builtin.systemd_service:
+        name:
+        - neutron-metadata-agent.service
+        - neutron-dhcp-agent.service
+        enabled: true
+        masked: no
+        state: restarted
+
+    # TODO Add config files for Provider config.
+
     - name: Clone the official Openstack-Ansible repository
       ansible.builtin.git:
         repo: "{{ osa_repo }}"
@@ -23,6 +48,18 @@
       ansible.builtin.shell: scripts/bootstrap-ansible.sh
       args:
         chdir: "{{ osa_dir }}"
+
+    - name: Touch /etc/openstack_deploy
+      ansible.builtin.file:
+        state: directory
+        path: /etc/openstack_deploy
+
+    - name: Copy over custom user_config
+      ansible.builtin.copy:
+        src: ./devanet.yaml
+        dest: "/etc/openstack_deploy/user_devanet.yml"
+      tags:
+      - extra_conf
 
     - name: Run the AIO bootstrap script
       ansible.builtin.shell: export SCENARIO='aio_metal_horizon_heat_metal'; scripts/bootstrap-aio.sh # if metal, it missed out horizon..

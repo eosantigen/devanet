@@ -66,7 +66,7 @@ Try logging in as `eos.antigen` on domain `devanet` . It should say something li
 
 - Create `devanet` domain: `openstack domain create --description "For Personal Development --insecure" devanet`
 
-# Networking
+# Networking (Non-Provider)
 
 1. Create private net, not Shared, not External. Add a subnet to it, with DNS Name Servers `192.168.1.1` _(our base host DevaPC...)_
 
@@ -103,3 +103,131 @@ The `os.devanet` has the appropriate routing information to locate your VMs in y
 - DNS resolution via our own dns container instance: Works like a charm
 
 ![connectivity](./media/openstack/connectivity.png)
+
+# Networking (Provider)
+
+Based on this https://docs.openstack.org/neutron/zed/admin/deploy-ovs-provider.html
+
+The following configuration is passed through the `openstack-aio.yaml` playbook, as well.
+
+```ini
+root@aio1:/etc/neutron# cat dhcp_agent.ini 
+
+[DEFAULT]
+interface_driver = openvswitch
+enable_isolated_metadata = True
+force_metadata = True
+```
+
+```ini
+root@aio1:/etc/neutron# cat metadata_agent.ini
+ 
+[DEFAULT]
+nova_metadata_host = aio1
+metadata_proxy_shared_secret = this-is-ever-changing-same-as-nova-conf
+```
+
+```ini
+root@aio1:/etc/neutron# cat plugins/ml2/openvswitch_agent.ini 
+
+[ovs]
+
+bridge_mappings = provider:br-provider
+
+[securitygroup]
+
+enable_security_group = true
+firewall_driver = openvswitch
+```
+
+```ini
+root@aio1:/etc/neutron# cat plugins/ml2/ml2_conf.ini
+# must contain the following, the rest output is excluded.
+[ml2]
+type_drivers = geneve,vlan,flat
+tenant_network_types = geneve,vlan,flat
+mechanism_drivers = ovn,openvswitch
+extension_drivers = port_security
+# ML2 flat networks
+
+[ml2_type_flat]
+flat_networks = provider
+```
+
+Connect the 'physical' base VM (the AIO host) interface to OVS:
+
+`ovs-vsctl add-port br-provider enp0s3`
+
+So, now, our OVS status is as follows:
+```sh
+root@aio1:/etc/neutron# ovs-vsctl show
+b4f4e047-c2cb-4b2f-81c2-93d0083081c1
+    Manager "ptcp:6640:127.0.0.1"
+        is_connected: true
+    Bridge br-int
+        Controller "tcp:127.0.0.1:6633"
+            is_connected: true
+        fail_mode: secure
+        datapath_type: system
+        Port tap8059c295-dd
+            tag: 4095
+            trunks: [4095]
+            Interface tap8059c295-dd
+                type: internal
+        Port int-br-provider
+            Interface int-br-provider
+                type: patch
+                options: {peer=phy-br-provider}
+        Port tapad6f2cda-70
+            tag: 1
+            Interface tapad6f2cda-70
+        Port tap719a12eb-e8
+            tag: 1
+            Interface tap719a12eb-e8
+                type: internal
+        Port br-int
+            Interface br-int
+                type: internal
+    Bridge br-provider
+        Controller "tcp:127.0.0.1:6633"
+            is_connected: true
+        fail_mode: secure
+        datapath_type: system
+        Port enp0s3
+            Interface enp0s3
+        Port phy-br-provider
+            Interface phy-br-provider
+                type: patch
+                options: {peer=int-br-provider}
+        Port eth12
+            Interface eth12
+        Port br-provider
+            Interface br-provider
+                type: internal
+    ovs_version: "2.17.8"
+```
+
+Finally, restart these services:
+```sh
+systemctl restart neutron-openvswitch-agent.service
+systemctl restart neutron-metadata-agent.service
+systemctl restart neutron-dhcp-agent.service
+```
+(depending on degraded services or no effect, then maybe, also is needed, `systemctl restart neutron-server`).
+
+**Check on what's up:**
+
+![provider-ovs-up](./media/openstack/provider-ovs-up.png)
+
+## Create the Provider-based flat network 'devanet' and test connectivity
+
+Execute the scripts under **scripts/os** . It should look like this:
+
+![provider-conn](./media/openstack/provider-conn.png)
+![provider-devanet-ports](./media/openstack/provider-devanet-ports.png)
+
+### Notes
+
+Indeed, our running instance got the IP `192.168.122.188` (Compute:Nova) - which we are able to ping from the DevaPC. _(but not from within the os.devanet AIO host.)_
+
+The Public network is not provider-based and is auto-created and can be disabled, by it's harmless to leave it like this for now.
