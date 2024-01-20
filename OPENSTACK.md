@@ -206,8 +206,67 @@ b4f4e047-c2cb-4b2f-81c2-93d0083081c1
                 type: internal
     ovs_version: "2.17.8"
 ```
+## Troubleshooting broken connectivity
 
-Finally, restart these services:
+The addition of the physical interface to OVS breaks connectivity to **192.168.122.2** from the DevaPC (**192.168.1.1**), since **enp0s3** becomes a slave to **ovs-system** ... so, following the first paragraph in the official [OVS doc](https://docs.openvswitch.org/en/latest/faq/issues/) , and based on the message through `systemctl restart systemd-networkd; systemctl status systemd-networkd` which states `enp0s3: Failed to set master interface, ignoring: Operation not supported` - then, to restore connectivity from DevaPC to aio1 VM, we must do:
+
+```
+ip addr flush dev enp0s3
+ip addr add 192.168.122.2/24 dev br-provider
+ip link set br-provider up
+```
+Because this needs to be done at every boot time, we can pass this config to a **netplan** config:
+
+1. First disable the address given to enp0s3 :
+
+```yaml
+# cat /etc/netplan/00-installer-config.yaml 
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    enp0s3:
+      # addresses:
+      # - 192.168.122.2/24
+      nameservers:
+        addresses:
+        - 192.168.122.1
+        - 192.168.1.1
+        search:
+        - devanet
+      routes:
+      - to: default
+        via: 192.168.122.1
+  version: 2
+```
+
+2. Then, we need:
+
+```yaml
+# cat /etc/netplan/01-openvswitch-config.yaml 
+network:
+  ethernets:
+    enp0s3: {}
+  bridges:
+    br-provider:
+      interfaces: [enp0s3]
+      openvswitch: {}
+      addresses: [192.168.122.2/24]
+  version: 2
+```
+3. Either `systemctl restart systemd-networkd` or `netplan apply`...
+
+So, now , on the next reboot, we see on the Message of the Day text:
+
+```
+IPv4 address for br-provider: 192.168.122.2
+
+(and no address set for enp0s3! The route table has also been updated.)
+```
+
+
+**Key Neutron services**
+
+When `/etc/neutron` config files are modified, then you need at some point to restart these services:
 ```sh
 systemctl restart neutron-openvswitch-agent.service
 systemctl restart neutron-metadata-agent.service

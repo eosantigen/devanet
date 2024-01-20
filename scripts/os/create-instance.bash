@@ -2,7 +2,7 @@
 
 openstack server create \
   --insecure \
-  --flavor devatest \
+  --flavor deva \
   --network devanet \
   --image ubuntu-server-lts \
-  devatest
+  $1
