@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# Invocation: ./create-instance.bash <some_flavor> <instance_name>
+
 openstack server create \
   --insecure \
-  --flavor deva \
+  --flavor $1 \
   --network devanet \
   --image ubuntu-server-lts \
-  $1
+  $2
