@@ -33,7 +33,7 @@ Launch https://192.168.122.2:8006 and login with domain `devanet` _(LDAP)_ .
 
 #### On Openstack
 
-Launch https://192.168.122.2 and login as `admin` with password found under `/etc/openstack_deploy/user_secrets.yml` (`keystone_auth_admin_password`).
+Launch https://192.168.122.2 and login as `admin` with password found with `grep keystone_auth_admin_password /etc/openstack_deploy/user_secrets.yml`.
 
 ---
 

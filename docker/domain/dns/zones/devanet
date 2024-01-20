@@ -23,8 +23,8 @@ ldap.devanet.                   IN      A      192.168.1.1
 jenkins.devanet.                IN      A      192.168.1.1
 pve.devanet.                    IN      A      192.168.122.2
 os.devanet.                     IN      A      192.168.122.2
-kc1.devanet.                    IN      A      192.168.122.3
-kw1.devanet.                    IN      A      192.168.122.4
+kubem.devanet.                  IN      A      192.168.122.5
+kubew.devanet.                  IN      A      192.168.122.6
 web-proxy-nginx.devanet.        IN      A      192.168.1.1
 
 ; Kubernetes Ingress Nginx Resources
@@ -32,10 +32,6 @@ web-proxy-nginx.devanet.        IN      A      192.168.1.1
 argocd.devanet.          IN  CNAME  kw1
 grpc.argocd.devanet.     IN  CNAME  kw1
 tarot.devanet            IN  CNAME  kw1
-
-; Openstack Floating IPs
-
-gitlab.devanet.          IN  A     172.29.249.145
 
 ; DevaWeb
 

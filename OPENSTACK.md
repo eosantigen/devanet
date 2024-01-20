@@ -50,21 +50,18 @@ Login and grap the RC file and source it.
 
 Now, logout, and the textfield for the domain input will appear. (there is a dropdown setting but it's not working at least on Firefox.)
 
+## Basic initialization for Domains via CLI
+
+1. Create `devanet` domain: `openstack domain create devanet`
+2. Add the admin role to the default domain, _in order to be able to manage domains_: `openstack role add --domain default --user admin admin --insecure`
+3. Add the admin role the devanet domain: `openstack role add --domain devanet --user admin admin --insecure` (NOTE: this cannot log in under devanet with the basic auth admin creds.)
+4. List users under the `default` domain: `openstack user list --domain default --insecure`
+
 ## Test LDAP Connection
 
 Firstly, LDAP must be configured on the ldap container instance as per [this](https://github.com/eosantigen/devanet/blob/main/docker/domain/ldap/README.md)
 
-Try logging in as `eos.antigen` on domain `devanet` . It should say something like "_you have no permissions for this domain."_  . For this, login as `admin` under `default` domain and go to Identity -> Domains -> Set domain context (devanet) -> Manage Members -> it should be able to see the user `eos.antigen`. So now you should be able to log back as `eos.antigen`.
-
-## CLI
-
-- Add the admin role to the default domain, _in order to be able to manage domains_: `openstack role add --domain default --user admin admin --insecure`
-
-- Add the admin role the devanet domain: `openstack role add --domain devanet --user admin admin --insecure` (NOTE: this cannot log in under devanet with the basic auth admin creds.)
-
-- List users under the `default` domain: `openstack user list --domain default --insecure`
-
-- Create `devanet` domain: `openstack domain create --description "For Personal Development --insecure" devanet`
+Try logging in as `eos.antigen` on domain `devanet` . It should say something like "_you have no permissions for this domain."_  . For this, login as `admin` under `default` domain and go to Identity -> Domains -> Set domain context (devanet) -> Manage Members -> it should be able to see the user `eos.antigen`, add it as `admin` to the domain `devanet`. So now you should be able to log back as `eos.antigen`.
 
 # Networking (Non-Provider)
 
@@ -217,26 +214,26 @@ ip link set br-provider up
 ```
 Because this needs to be done at every boot time, we can pass this config to a **netplan** config:
 
-1. First disable the address given to enp0s3 :
+1. First disable the address given to enp0s3 - actually comment out the entire initial config:
 
 ```yaml
 # cat /etc/netplan/00-installer-config.yaml 
 # This is the network config written by 'subiquity'
-network:
-  ethernets:
-    enp0s3:
-      # addresses:
-      # - 192.168.122.2/24
-      nameservers:
-        addresses:
-        - 192.168.122.1
-        - 192.168.1.1
-        search:
-        - devanet
-      routes:
-      - to: default
-        via: 192.168.122.1
-  version: 2
+# network:
+#  ethernets:
+#    enp0s3:
+#      addresses:
+#      - 192.168.122.2/24
+#      nameservers:
+#        addresses:
+#        - 192.168.122.1
+#        - 192.168.1.1
+#        search:
+#        - devanet
+#      routes:
+#      - to: default
+#        via: 192.168.122.1
+#  version: 2
 ```
 
 2. Then, we need:
@@ -251,17 +248,29 @@ network:
       interfaces: [enp0s3]
       openvswitch: {}
       addresses: [192.168.122.2/24]
+      nameservers:
+        addresses:
+        - 192.168.122.1
+        - 192.168.1.1
+        search:
+        - devanet
+      routes:
+      - to: default
+        via: 192.168.122.1
   version: 2
 ```
-3. Either `systemctl restart systemd-networkd` or `netplan apply`...
+3. Either `systemctl restart systemd-networkd` or solely `netplan apply`...
 
 So, now , on the next reboot, we see on the Message of the Day text:
 
 ```
 IPv4 address for br-provider: 192.168.122.2
-
-(and no address set for enp0s3! The route table has also been updated.)
 ```
+And no address set for enp0s3! The route table has also been updated, with
+```
+default via 192.168.122.1 dev br-provider proto static 
+```
+
 
 
 **Key Neutron services**

@@ -13,11 +13,11 @@
 export OS_AUTH_URL=https://192.168.122.2:5000
 # With the addition of Keystone we have standardized on the term **project**
 # as the entity that owns the resources.
-export OS_PROJECT_ID=ef95cb15b64543bf87cb1ecd73a36442
-export OS_PROJECT_NAME="gitlab"
+export OS_PROJECT_ID=8859265174e541ffaf3a220477419b07
+export OS_PROJECT_NAME="kubernetes"
 export OS_USER_DOMAIN_NAME="devanet"
 if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
-export OS_PROJECT_DOMAIN_ID="11acacbde8374255a43d2b9bbd8f3b5a"
+export OS_PROJECT_DOMAIN_ID="f18f7ffcffc048608893510a7f7ecc23"
 if [ -z "$OS_PROJECT_DOMAIN_ID" ]; then unset OS_PROJECT_DOMAIN_ID; fi
 # unset v2.0 items in case set
 unset OS_TENANT_ID
