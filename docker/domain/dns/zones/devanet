@@ -21,7 +21,6 @@ ns.devanet.          IN      A      192.168.1.1
 
 ldap.devanet.                   IN      A      192.168.1.1
 jenkins.devanet.                IN      A      192.168.1.1
-pve.devanet.                    IN      A      192.168.122.2
 os.devanet.                     IN      A      192.168.122.2
 kubem.devanet.                  IN      A      192.168.122.5
 kubew.devanet.                  IN      A      192.168.122.6
@@ -29,10 +28,11 @@ web-proxy-nginx.devanet.        IN      A      192.168.1.1
 
 ; Kubernetes Ingress Nginx Resources
 
-argocd.devanet.          IN  CNAME  kw1
-grpc.argocd.devanet.     IN  CNAME  kw1
-tarot.devanet            IN  CNAME  kw1
+argocd.devanet.          IN  CNAME  kubew
+grpc.argocd.devanet.     IN  CNAME  kubew
+tarot.devanet            IN  CNAME  kubew
+
 
 ; DevaWeb
 
-devaweb.devanet.         IN  CNAME  web-proxy-nginx ; this falls upon the Nginx as reverse proxy for DevaWeb, containerised on the host network.
+devaweb.devanet.         IN  CNAME  web-proxy-nginx ; this falls upon the Nginx as reverse proxy for DevaWeb, containerised on the host network. (Temporarily here, it will be inside k8s ingress.)

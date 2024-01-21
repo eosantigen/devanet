@@ -4,7 +4,7 @@
 
 - name: Install libvirt dependencies
   ansible.builtin.apt:
-    update_cache: no
+    update_cache: yes
     name:
       - libvirt-daemon-system
       - libnss-libvirt
@@ -16,6 +16,42 @@
   when: ansible_os_family == "Debian"
   become: true
 
+- name: Edit libvirt configs - security_driver
+  ansible.builtin.replace:
+    path: /etc/libvirt/qemu.conf
+    backup: yes
+    regexp: 'security_driver = "selinux"'
+    replace: 'security_driver = "none"'
+  when: ansible_os_family == "Debian"
+  become: true
+
+- name: Edit libvirt configs - user
+  ansible.builtin.replace:
+    path: /etc/libvirt/qemu.conf
+    backup: yes
+    regexp: 'user = "root"'
+    replace: 'user = "none"'
+  when: ansible_os_family == "Debian"
+  become: true
+
+- name: Edit libvirt configs - group
+  ansible.builtin.replace:
+    path: /etc/libvirt/qemu.conf
+    backup: yes
+    regexp: 'group = "root"'
+    replace: 'group = "none"'
+  when: ansible_os_family == "Debian"
+  become: true
+
+- name: Edit other configs
+  ansible.builtin.replace:
+    path: /etc/nsswitch.conf
+    backup: yes
+    regexp: '^.*hosts:.*$(?m)'
+    replace: 'hosts: files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
+  when: ansible_os_family == "Debian"
+  become: true
+
 - name: Enable and start libvirt daemons
   ansible.builtin.systemd:
     daemon_reload: yes
@@ -23,15 +59,6 @@
     enabled: yes
     masked: no
     name: libvirtd
-  when: ansible_os_family == "Debian"
-  become: true
-
-- name: Edit libvirt configs
-  ansible.builtin.replace:
-    path: /etc/nsswitch.conf
-    backup: yes
-    regexp: '^.*hosts:.*$(?m)'
-    replace: 'hosts: files mdns4_minimal [NOTFOUND=return] dns libvirt libvirt_guest'
   when: ansible_os_family == "Debian"
   become: true
 
